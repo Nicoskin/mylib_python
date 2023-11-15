@@ -19,6 +19,13 @@ corr()
 ```
 sdr_settings()
 str_to_bits()
+bits_to_str()
 tx_sig()
 rx_cycles_buffer()
+
+bpsk()
+qpsk()
+psk8()
+qam16()
+qam32()
 ```
