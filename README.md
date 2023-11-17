@@ -28,4 +28,6 @@ qpsk()
 psk8()
 qam16()
 qam32()
+
+synchro_qpsk()
 ```

@@ -345,3 +345,52 @@ def qam32(bits):
     
     return np.array(symbols)
 
+def synchro_qpsk(rx_array, threshold, length=490, angle = 45):
+    """
+    Находит синхру и перекручивает сигнал на нужный угол
+
+    Параметры
+    ---------
+    rx_array : array_like
+        Входной комплексный массив.
+    threshold : int
+        Порог для определения синхронизации(± расхождение синхры)
+    length : int, optional
+        Длина последовательности для обнаружения синхронизации, по умолчанию 490("символы синхры" * "их длительность")
+    angle: int, optional
+        Угол на котором находится синхра
+
+    Возвращает
+    ----------
+    synchronized_array : ndarray
+        Синхронизированный массив.
+    """
+    # Находим индексы элементов, близких к 1+1j
+    k = 0
+    for i in range(1, len(rx_array)):
+        if abs(rx_array[i] - rx_array[i-1]) < threshold:
+            k += 1
+        else:
+            k = 0
+
+        if k == length:  # Порог для обнаружения синхронизации
+            sync_index = i
+            break
+    
+    if k == 0:
+        print("Синхронизация не найдена")
+        return rx_array  # Возвращаем исходный массив, если синхронизация не найдена
+    
+    # Находим средний угол для найденных элементов
+    mean_angle = np.angle(rx_array[sync_index - length + 1:sync_index + 1]).mean()
+    
+    # Вычисляем угол fi_standart (45 градусов в радианах)
+    fi_standart = np.deg2rad(angle)
+    
+    # Вычисляем коррекцию угла
+    angle_correction = -(mean_angle - fi_standart)
+    
+    # Применяем коррекцию к массиву
+    rx_array = rx_array * np.exp(1j * angle_correction)
+    
+    return rx_array
