@@ -1,27 +1,32 @@
 import numpy as np
 
-def sdr_settings(ip = "ip:192.168.3.1", frequency=2e9, buffer_size = 1000, sample_rate = 1e6, tx_gain = 0, rx_gain=0):
+def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sample_rate = 1e6, tx_gain = 0, rx_gain = 0):
     """
     Базовые настройки sdr
     
     sdr = sdr_settings("ip:192.168.3.1", 2300e6+(2e6*2), 1000, 1e6,0,30) # type: ignore
     
+    /
+    
     Параметры
     ----------
-        ip : "ip:192.168.3.1" / "ip:192.168.2.1"
+        `ip` : "ip:192.168.3.1" / "ip:192.168.2.1"
         
-        frequency : частота дискретизации
+        `frequency` : частота дискретизации
             от 325 [МГц] до 3.8 [ГГц]
             
-        buffer_size = 1000 [samples]
+        `buffer_size` = 1000 [samples]
         
-        sample_rate = 1e6 [samples]
+        `sample_rate` = 1e6 [samples]
         
-        tx_gain : сила передачи [dBm]
+        `tx_gain`: сила передачи [dBm]
             рекомендуемое значение от 0 до -50
             
-        rx_gain : чувствительность приёма [dBm]
+        `rx_gain`: чувствительность приёма [dBm]
             рекомендуемое значение от 0 до -50
+    Возвращает
+    ----------  
+        `sdr`: настроенная переменная sdr
     """
     import adi
     sdr = adi.Pluto(ip)
@@ -43,16 +48,16 @@ def str_to_bits(str: str, b_start: int | None = None, b_stop: int | None = None)
     
     Параметры
     -------------
-        str : строка которая кодируется
+        `str` : строка которая кодируется
 
-        b_start : (optional) количество единиц в начале
+        `b_start` : (optional) количество единиц в начале
         
-        b_stop : (optional) количество единиц в конце
+        `b_stop` : (optional) количество единиц в конце
 
     Возвращает
     ----------
-        bit_array : srt
-            Закодированная строка ASCII (битовая последовательность)
+        `bit_array` : numpy array
+            Закодированный массив ASCII (битовая последовательность)
     """
     encoded_bytes = str.encode('ascii')
     # Преобразование байтов в массив битов
@@ -84,15 +89,15 @@ def bits_to_str(bit_array, b_start: int | None = None, b_stop: int | None = None
 
     Параметры
     ----------
-        bit_array : Битовая последовательность.
+        `bit_array`: Битовая последовательность.
 
-        b_start : (optional) количество единиц в начале
+        `b_start`: (optional) количество единиц в начале
         
-        b_stop : (optional) количество единиц в конце
+        `b_stop`: (optional) количество единиц в конце
 
     Возвращает
     --------
-        decoded_str : str
+        `decoded_str`: str
             Раскодированная строка ASCII.
     """
     bit_array = np.array(bit_array)
@@ -115,14 +120,15 @@ def tx_sig(samples, tx_cycle: bool = True):
     """
     Функция передает samples на TX
     
-    !!! Нужно sdr !!!
+    !!! Нужна настроенная sdr !!!
     
     Параметры
     ----------
-        tx_cycle : по станадрту передает в цикле
+        `tx_cycle`: по станадрту передает в цикле
         
-    не забывай сбрасывать в конце проги 
+    Не забывай сбрасывать буфер в конце проги 
         " sdr.tx_destroy_buffer() "
+    
     """
     try:
         sdr.tx_cyclic_buffer = tx_cycle
@@ -133,17 +139,17 @@ def tx_sig(samples, tx_cycle: bool = True):
 
 def rx_cycles_buffer(num_cycles: int = 1):
     """
-    Получает циклически сигнал с RX 
+    Циклически получает сигнал с RX 
     
-    !! Нужна настройка sdr !! 
+    !!! Нужна настроенная sdr !!!
     
     Параметры
     --------
-        num_cycles : сколько раз получает буфер rx
+        `num_cycles`: сколько раз получает буфер rx
     
     Возвращает
     ----------
-        rx : выводит [num_cycles] циклов RX
+        `rx`: выводит [num_cycles] циклов RX
     
     """
     rx = []
@@ -156,24 +162,26 @@ def rx_cycles_buffer(num_cycles: int = 1):
         print("Переменная 'sdr' не определена.")
         return -1
 
-def bpsk(bits, amplitude=2**14):
+
+def bpsk(bits, amplitude = 2**14):
     """
     BPSK модуляция битовой последовательности
 
     Параметры
-    --------
-    bits : битовая последовательность
-    
-    amplitude : амплитуда сигнала
-        по умолчанию 2**14
+    ---------
+        `bits`: array
+            Битовая последовательность (кратна 4)
+        
+        `amplitude` : int, optional
+            По умолчанию 2**14
         
     Возвращает
-    --------
-    samples : numpy array
-        Массив комплексных чисел, представляющих BPSK-модулированные сэмплы.
+    ---------
+        `samples` : numpy array
+            Массив комплексных чисел, представляющих BPSK модулированные сэмплы.
     """
     bits = np.array(bits)
-    sam = bits * 2 - 1 # Маппинг 0 на 1, 1 на -1
+    sam = bits * -2 + 1 # Маппинг 0 на 1, 1 на -1
     sam = sam * amplitude
     
     # Векторизованное преобразование в комплексные числа
@@ -181,28 +189,22 @@ def bpsk(bits, amplitude=2**14):
     
     return sam
 
-def qpsk(bits, amplitude=2**14, encode=2):
+def qpsk(bits, amplitude = 2**14):
     """
     QPSK модуляция битовой последовательности
 
     Параметры
-    --------
-    bits : битовая последовательность (кратна 2)
-    
-    amplitude : амплитуда сигнала
-        по умолчанию 2**14
+    ---------
+        `bits`: array
+            Битовая последовательность
         
-    encode : метод расположения бит на окружности
-        (1ая четверть, 2ая...)
-        
-        '1' - 11, 01, 00, 10
-        
-        '2' - 00, 10, 11, 01
-        
+        `amplitude` : int, optional
+            По умолчанию 2**14
+
     Возвращает
-    --------
-    samples : numpy array
-        Массив комплексных чисел, представляющих QPSK-модулированные сэмплы.
+    ---------
+        `samples` : numpy array
+            Массив комплексных чисел, представляющих QPSK модулированные сэмплы.
     """   
     # Проверка, является ли bits массивом NumPy, если нет, преобразование в массив
     if not isinstance(bits, np.ndarray):
@@ -213,15 +215,9 @@ def qpsk(bits, amplitude=2**14, encode=2):
         raise ValueError("Длина входной битовой последовательности должна быть четной для модуляции QPSK")
     
     # Разделение битов на действительную и мнимую части
-    if encode == 2: # Маппинг 0 на 1, 1 на -1
-        in_phase = bits[::2] * -2 + 1
-        quadrature = bits[1::2] * -2 + 1
-        
-    elif encode == 1: # Маппинг 0 на -1, 1 на 1
-        in_phase = bits[::2] * 2 - 1
-        quadrature = bits[1::2] * 2 - 1
-    else: 
-        print("Invalid volume")
+    # Маппинг 0 на 1, 1 на -1
+    in_phase = bits[::2] * -2 + 1
+    quadrature = bits[1::2] * -2 + 1
 
     # Комбинирование в комплексные числа (QPSK modulation)
     samples = in_phase + 1j * quadrature
@@ -230,85 +226,27 @@ def qpsk(bits, amplitude=2**14, encode=2):
     
     return samples
 
-def psk8(bits, amplitude=2**14):
-    """
-    Модуляция данных с использованием 8-PSK.
-
-    Параметры
-    ----------
-    bits : битовая последовательность (кратна 3)
-        
-    amplitude : амплитуда сигнала
-        по умолчанию 2**14
-        
-    Возвращает
-    --------
-    samples : numpy array
-        Массив комплексных чисел, представляющих 8-PSK модулированные сэмплы.
-    """
-    bits = np.array(bits)
-    if len(bits) % 3 != 0:
-        raise ValueError("Длина битовой последовательности должна быть кратной 3 для 8-PSK.")
-    
-    symbol_map = {
-        (0, 0, 0): complex(0.707, 0.707),
-        (0, 0, 1): complex(1, 0),
-        (0, 1, 0): complex(-1, 0),
-        (0, 1, 1): complex(-0.707, -0.707),
-        (1, 0, 0): complex(0, 1),
-        (1, 0, 1): complex(0.707, -0.707),
-        (1, 1, 0): complex(-0.707, 0.707),
-        (1, 1, 1): complex(0, -1),
-    }
-
-    # Группировка входных битов в 3-битные блоки
-    symbols = [tuple(bits[i:i+3]) for i in range(0, len(bits), 3)]
-    # Сопоставляет каждый 3-битный фрагмент со сложным символом
-    samples = np.array([symbol_map[s] for s in symbols])
-    
-    samples = samples * amplitude
-    
-    return np.array(samples)
-
-def qam16(bits, amplitude=2**14):
-    """
-    16-QAM моделяция для битовой последовательности
+def qam16(bits, amplitude = 2**14):
+    """16-QAM модуляция для битовой последовательности
 
     Параметры
     ---------
-        bits: битовая последовательность (кратна 4)
+        `bits`: array
+            Битовая последовательность (кратна 4)
         
-        amplitude : амплитуда 
-            будет поделена на 3 чтобы крайние значения не привышали мозможности sdr
+        `amplitude` : int, optional
+            По умолчанию 2**14
 
-    Возвращается:
-        samples : numpy array
+    Возвращает
+    ---------
+        `samples` : numpy array
             Массив комплексных чисел, представляющих 16-QAM модулированные сэмплы.
     """
     # Проверьте, кратна ли длина битов 4
     if len(bits) % 4 != 0:
         raise ValueError("Длина входной битовой последовательности должна быть кратна 4")
 
-    # Создание маппинга символов 16-QAM
-    # qam_symbols = {
-    #     (0, 0, 0, 0): -3 - 3j,
-    #     (0, 0, 0, 1): -3 - 1j,
-    #     (0, 0, 1, 0): -3 + 3j,
-    #     (0, 0, 1, 1): -3 + 1j,
-    #     (0, 1, 0, 0): -1 - 3j,
-    #     (0, 1, 0, 1): -1 - 1j,
-    #     (0, 1, 1, 0): -1 + 3j,
-    #     (0, 1, 1, 1): -1 + 1j,
-    #     (1, 0, 0, 0): 3 - 3j,
-    #     (1, 0, 0, 1): 3 - 1j,
-    #     (1, 0, 1, 0): 3 + 3j,
-    #     (1, 0, 1, 1): 3 + 1j,
-    #     (1, 1, 0, 0): 1 - 3j,
-    #     (1, 1, 0, 1): 1 - 1j,
-    #     (1, 1, 1, 0): 1 + 3j,
-    #     (1, 1, 1, 1): 1 + 1j,
-    # }
-    # Создание маппинга символов 16-QAM | 3GPP.38.211.V1620
+    # Создание маппинга символов 16-QAM | 3GPP TS 38.211 V17.5.0 (2023-06
     qam_symbols = {
         (0, 0, 0, 0): 1 + 1j,
         (0, 0, 0, 1): 1 + 3j,
@@ -334,56 +272,29 @@ def qam16(bits, amplitude=2**14):
     # Сопоставляет каждый 4-битный фрагмент со сложным символом
     sqrt = 1/(10**0.5)
     samples = np.array([qam_symbols[s]*sqrt for s in symbols])
-    samples = samples * (amplitude//3)
+    samples = samples * (amplitude)
 
     return samples
 
-def qam32(bits):
-    """
-    32-QAM моделяция для битовой последовательности
-    
-    Не факт что правильно работает
-
-    Параметры
-    ---------
-        bits: числовой массив или список двоичных значений (0 или 1)
-
-    Возвращается:
-        samples : numpy array
-            Массив комплексных чисел, представляющих 32-QAM модулированные сэмплы.
-    """
-    
-    if len(bits) % 5 != 0:
-        raise ValueError("Длина битовой последовательности должна быть кратной 5 для 32-QAM.")
-    
-    symbols = []
-    for i in range(0, len(bits), 5):
-        b = bits[i:i+5]
-        real = b[0]*2-1 + b[2] - b[3]*2 + b[4]*4
-        imag = b[1]*2-1 + b[2] - b[3]*2 + b[4]*4
-        symbols.append(complex(real, imag))
-    
-    return np.array(symbols)
-
-def synchro_qpsk(rx_array, threshold, length=490, angle = 45):
+def synchro_qpsk(rx_array, threshold, length=490, angle=45):
     """
     Находит синхру и перекручивает сигнал на нужный угол
 
     Параметры
     ---------
-    rx_array : array_like
-        Входной комплексный массив.
-    threshold : int
-        Порог для определения синхронизации(± расхождение синхры)
-    length : int, optional
-        Длина последовательности для обнаружения синхронизации, по умолчанию 490("символы синхры" * "их длительность")
-    angle: int, optional
-        Угол на котором находится синхра
+        `rx_array` : array_like
+            Входной комплексный массив.
+        `threshold` : int
+            Порог для определения синхронизации(± расхождение синхры)
+        `length` : int, optional
+            Длина последовательности для обнаружения синхронизации, по умолчанию 490("символы синхры" * "их длительность")
+        `angle`: int, optional
+            Угол на котором находится синхра
 
     Возвращает
     ----------
-    synchronized_array : ndarray
-        Синхронизированный массив.
+        `synchronized_array` : np array
+            Синхронизированный массив.
     """
     # Находим индексы элементов, близких к 1+1j
     k = 0
