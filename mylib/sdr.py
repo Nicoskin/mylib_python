@@ -1,12 +1,27 @@
+"""
+- sdr_settings()
+- str_to_bits()
+- bits_to_str()
+- tx_sig()
+- rx_cycles_buffer()
+
+Модуляция:
+    - bpsk()
+    - qpsk()
+        - qpsk_synchro()
+    - qam16()
+
+"""
+
 import numpy as np
 
-def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sample_rate = 1e6, tx_gain = 0, rx_gain = 0):
+def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sample_rate = 1e6, tx_gain = 0, rx_gain = 0, mode = 'manual'):
     """
     Базовые настройки sdr
     
+    sdr = sdr_settings("ip:192.168.3.1")
     sdr = sdr_settings("ip:192.168.3.1", 2300e6+(2e6*2), 1000, 1e6,0,30) # type: ignore
     
-    /
     
     Параметры
     ----------
@@ -24,6 +39,10 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
             
         `rx_gain`: чувствительность приёма [dBm]
             рекомендуемое значение от 0 до -50
+            
+        `mode` : str, optional
+            slow_attack, fast_attack, manual
+            
     Возвращает
     ----------  
         `sdr`: настроенная переменная sdr
@@ -34,9 +53,12 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
     sdr.rx_lo = int(frequency)
     sdr.tx_lo = int(frequency)
 
+    sdr.tx_destroy_buffer()
+    sdr.rx_destroy_buffer()
+
     sdr.rx_buffer_size = buffer_size
     sdr.sample_rate = sample_rate
-    sdr.gain_control_mode_chan0 = 'manual'
+    sdr.gain_control_mode_chan0 = mode
     sdr.tx_hardwaregain_chan0 = tx_gain # рекомендуемое значение от 0 до -50
     sdr.rx_hardwaregain_chan0 = rx_gain # рекомендуемое значение от 0 до -50
 
@@ -116,7 +138,7 @@ def bits_to_str(bit_array, b_start: int | None = None, b_stop: int | None = None
 
     return decoded_str
 
-def tx_sig(samples, tx_cycle: bool = True):
+def tx_sig(sdr, samples, tx_cycle: bool = True):
     """
     Функция передает samples на TX
     
@@ -124,6 +146,8 @@ def tx_sig(samples, tx_cycle: bool = True):
     
     Параметры
     ----------
+        `sdr` : переменная sdr
+        
         `tx_cycle`: по станадрту передает в цикле
         
     Не забывай сбрасывать буфер в конце проги 
@@ -137,7 +161,7 @@ def tx_sig(samples, tx_cycle: bool = True):
         print("Переменная 'sdr' не определена.")
         return -1
 
-def rx_cycles_buffer(num_cycles: int = 1):
+def rx_cycles_buffer(sdr, num_cycles: int = 1):
     """
     Циклически получает сигнал с RX 
     
@@ -145,6 +169,8 @@ def rx_cycles_buffer(num_cycles: int = 1):
     
     Параметры
     --------
+        `sdr` : переменная sdr
+        
         `num_cycles`: сколько раз получает буфер rx
     
     Возвращает
@@ -163,7 +189,7 @@ def rx_cycles_buffer(num_cycles: int = 1):
         return -1
 
 
-def bpsk(bits, amplitude = 2**14):
+def bpsk(bits, amplitude = 2**14, repeat: int | None = None):
     """
     BPSK модуляция битовой последовательности
 
@@ -187,9 +213,12 @@ def bpsk(bits, amplitude = 2**14):
     # Векторизованное преобразование в комплексные числа
     sam = np.vectorize(complex)(sam.real, sam.imag)
     
+    if repeat is not None:
+        sam = np.repeat(sam, repeat)
+        
     return sam
 
-def qpsk(bits, amplitude = 2**14):
+def qpsk(bits, amplitude = 2**14, repeat: int | None = None):
     """
     QPSK модуляция битовой последовательности
 
@@ -223,6 +252,10 @@ def qpsk(bits, amplitude = 2**14):
     samples = in_phase + 1j * quadrature
     
     samples = samples * amplitude # умножаем на амплитуду
+    samples = np.array(samples)
+    
+    if repeat is not None:
+        samples = np.repeat(samples, repeat)
     
     return samples
 
@@ -276,7 +309,7 @@ def qam16(bits, amplitude = 2**14):
 
     return samples
 
-def synchro_qpsk(rx_array, threshold, length=490, angle=45):
+def qpsk_synchro(rx_array, threshold, length=490, angle=45):
     """
     Находит синхру и перекручивает сигнал на нужный угол
 
@@ -320,6 +353,8 @@ def synchro_qpsk(rx_array, threshold, length=490, angle=45):
     
     # Вычисляем коррекцию угла
     angle_correction = -(mean_angle - fi_standart)
+    
+    rx_array = np.array(rx_array)
     
     # Применяем коррекцию к массиву
     rx_array = rx_array * np.exp(1j * angle_correction)
