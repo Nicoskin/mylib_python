@@ -26,7 +26,6 @@ rx_cycles_buffer()
 bpsk()
 qpsk()
 qam16()
-qam32()
 
-synchro_qpsk()
+qpsk_synchro()
 ```
