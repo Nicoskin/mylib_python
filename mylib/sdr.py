@@ -148,7 +148,7 @@ def tx_sig(sdr, samples, tx_cycle: bool = True):
     ----------
         `sdr` : переменная sdr
         
-        `tx_cycle`: по станадрту передает в цикле
+        `tx_cycle`: по стандарту передает в цикле
         
     Не забывай сбрасывать буфер в конце проги 
         " sdr.tx_destroy_buffer() "
@@ -200,6 +200,9 @@ def bpsk(bits, amplitude = 2**14, repeat: int | None = None):
         
         `amplitude` : int, optional
             По умолчанию 2**14
+            
+        `repeat` : int, optional
+            Число повторений бит (np.repeat)
         
     Возвращает
     ---------
@@ -229,6 +232,9 @@ def qpsk(bits, amplitude = 2**14, repeat: int | None = None):
         
         `amplitude` : int, optional
             По умолчанию 2**14
+        
+        `repeat` : int, optional
+            Число повторений бит (np.repeat)
 
     Возвращает
     ---------
