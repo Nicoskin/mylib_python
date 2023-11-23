@@ -315,9 +315,11 @@ def qam16(bits, amplitude = 2**14):
 
     return samples
 
-def qpsk_synchro(rx_array, threshold, length=490, angle=45):
+def qpsk_synchro(rx_array, threshold, length=490, angle=225, symbol_length: int | None = None):
     """
-    Находит синхру и перекручивает сигнал на нужный угол
+    Находит синхру и перекручивает сигнал на нужный угол    
+    
+    Если добавить длинну символа, то вернёт массив с одиночными символами
 
     Параметры
     ---------
@@ -329,6 +331,8 @@ def qpsk_synchro(rx_array, threshold, length=490, angle=45):
             Длина последовательности для обнаружения синхронизации, по умолчанию 490("символы синхры" * "их длительность")
         `angle`: int, optional
             Угол на котором находится синхра
+        `symbol_length`: int, optional
+            Если задать число то оставит от RX только одиночные символы
 
     Возвращает
     ----------
@@ -354,7 +358,7 @@ def qpsk_synchro(rx_array, threshold, length=490, angle=45):
     # Находим средний угол для найденных элементов
     mean_angle = np.angle(rx_array[sync_index - length + 1:sync_index + 1]).mean()
     
-    # Вычисляем угол fi_standart (45 градусов в радианах)
+    # Вычисляем угол fi_standart (225 градусов в радианах)
     fi_standart = np.deg2rad(angle)
     
     # Вычисляем коррекцию угла
@@ -364,5 +368,11 @@ def qpsk_synchro(rx_array, threshold, length=490, angle=45):
     
     # Применяем коррекцию к массиву
     rx_array = rx_array * np.exp(1j * angle_correction)
+    
+    # Разбиение на символы
+    if symbol_length is not None:
+        symbols = rx_array.reshape(-1, symbol_length)
+        extracted_symbols = symbols[:, 0]
+        return extracted_symbols
     
     return rx_array

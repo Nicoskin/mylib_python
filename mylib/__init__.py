@@ -1,6 +1,32 @@
+"""
+MyLib
+=====
+
+  >>> import mylib as ml
+  >>> from mylib.sdr import *
+  
+Функции
+--------
+`MAIN`
+- corr()
+
+`SDR`
+- sdr_settings()
+- str_to_bits()
+- bits_to_str()
+- tx_sig()
+- rx_cycles_buffer()
+
+Модуляция:
+    - bpsk()
+    - qpsk()
+        - qpsk_synchro()
+    - qam16()
+"""
+
 def corr(x, y, norm=True):
     """
-    Вычисляет взаимную корреляцию двух одномерных массивов
+    Вычисляет взаимную корреляцию двух одномерных массивов(без смещения)
     
     Параметры
     ------------
@@ -8,7 +34,9 @@ def corr(x, y, norm=True):
         
         norm: есть нормирование или нет
         
-        return:  корреляция
+    Возвращает
+    ----------  
+        Корреляция
     """
     import numpy as np
     x = np.asarray(x)
