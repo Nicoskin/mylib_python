@@ -1,7 +1,6 @@
 """
+`SDR`
 - sdr_settings()
-- str_to_bits()
-- bits_to_str()
 - tx_sig()
 - rx_cycles_buffer()
 
@@ -21,7 +20,6 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
     
     sdr = sdr_settings("ip:192.168.3.1")
     sdr = sdr_settings("ip:192.168.3.1", 2300e6+(2e6*2), 1000, 1e6,0,30) # type: ignore
-    
     
     Параметры
     ----------
@@ -46,7 +44,7 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
     Возвращает
     ----------  
         `sdr`: настроенная переменная sdr
-    """
+    """    
     import adi
     sdr = adi.Pluto(ip)
 
@@ -64,80 +62,6 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
 
     return sdr
 
-def str_to_bits(str: str, b_start: int | None = None, b_stop: int | None = None):
-    """
-    Преобразовает строку в битовую последовательност(ascii)
-    
-    Параметры
-    -------------
-        `str` : строка которая кодируется
-
-        `b_start` : (optional) количество единиц в начале
-        
-        `b_stop` : (optional) количество единиц в конце
-
-    Возвращает
-    ----------
-        `bit_array` : numpy array
-            Закодированный массив ASCII (битовая последовательность)
-    """
-    encoded_bytes = str.encode('ascii')
-    # Преобразование байтов в массив битов
-    bit_array = []
-    for byte in encoded_bytes:
-        bits = bin(byte)[2:].zfill(8)  # Преобразование в биты
-        bit_array.extend([int(bit) for bit in bits])
-
-    if b_start is not None and b_stop is None:
-        bit_start = np.ones(b_start)
-        
-        bit_array_list = list(bit_array)
-        bit_array_list = list(bit_start) + bit_array_list
-        bit_array = np.array(bit_array_list)
-
-    elif b_start is not None and b_stop is not None:
-        bit_start = np.ones(b_start)
-        bit_stop = np.ones(b_stop)
-
-        bit_array_list = list(bit_array)
-        bit_array_list = list(bit_start) + bit_array_list + list(bit_stop)
-        bit_array = np.array(bit_array_list)
-
-    return bit_array
-
-def bits_to_str(bit_array, b_start: int | None = None, b_stop: int | None = None):
-    """
-    Преобразует битовую последовательность в строку ASCII.
-
-    Параметры
-    ----------
-        `bit_array`: Битовая последовательность.
-
-        `b_start`: (optional) количество единиц в начале
-        
-        `b_stop`: (optional) количество единиц в конце
-
-    Возвращает
-    --------
-        `decoded_str`: str
-            Раскодированная строка ASCII.
-    """
-    bit_array = np.array(bit_array)
-    if b_start is not None and b_stop is not None:
-        # Удаляем добавленные единицы в начале и в конце
-        bit_array = bit_array[b_start:-b_stop]
-    elif b_start is not None:
-        # Удаляем добавленные единицы в начале
-        bit_array = bit_array[b_start:]
-
-    # Разбиваем биты на байты (по 8 бит в каждом)
-    bytes_list = [bit_array[i:i + 8] for i in range(0, len(bit_array), 8)]
-
-    # Преобразуем каждый байт в десятичное число и затем в символ ASCII
-    decoded_str = ''.join([chr(int(''.join(map(str, byte)), 2)) for byte in bytes_list])
-
-    return decoded_str
-
 def tx_sig(sdr, samples, tx_cycle: bool = True):
     """
     Функция передает samples на TX
@@ -152,7 +76,7 @@ def tx_sig(sdr, samples, tx_cycle: bool = True):
         
     Не забывай сбрасывать буфер в конце проги 
         " sdr.tx_destroy_buffer() "
-    
+    ^^^^
     """
     try:
         sdr.tx_cyclic_buffer = tx_cycle
@@ -374,5 +298,43 @@ def qpsk_synchro(rx_array, threshold, length=490, angle=225, symbol_length: int 
         symbols = rx_array.reshape(-1, symbol_length)
         extracted_symbols = symbols[:, 0]
         return extracted_symbols
+    
+    return rx_array
+
+def bpsk_sin(rx_array, sin):
+    """
+    Поиск синхронизации bpsk в сигнале rx
+    
+    sin = -1,1
+    
+    Параметры
+    ----------
+        `rx_array`: Массив сигнала
+        `sin`: массив синхронизации
+    
+    Возвращает
+    --------
+        `rx_array`: NParray
+            Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
+    """
+    import mylib as ml
+    cor = ml.autocorr(rx_array.real, sin)
+    
+    i_cor = np.argmax(abs(cor), axis=0)
+    
+    # Поиск второй синхронизации
+    i_cor_end = 0
+    for i in range(len(cor)-1, 0, -1): 
+        if abs(cor[i]) > 0.99:
+            i_cor_end = i
+            break
+            
+    if i_cor_end == 0:
+        rx_array = rx_array[i_cor:]
+    else:
+        rx_array = rx_array[i_cor:i_cor_end]
+    
+    angle = np.angle(rx_array[0]) # угол синхры
+    rx_array = rx_array * np.exp(1j * -angle) # разворот на нужный угол
     
     return rx_array
