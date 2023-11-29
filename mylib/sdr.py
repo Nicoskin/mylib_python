@@ -9,6 +9,7 @@
     - qpsk()
         - qpsk_synchro()
     - qam16()
+    - bpsk_sin()
 
 """
 
@@ -33,10 +34,10 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
         `sample_rate` = 1e6 [samples]
         
         `tx_gain`: сила передачи [dBm]
-            рекомендуемое значение от 0 до -50
+            рекомендуемое значение от -90 до 0 [дБ]
             
         `rx_gain`: чувствительность приёма [dBm]
-            рекомендуемое значение от 0 до -50
+            рекомендуемое значение от 0 до 74,5 [дБ]
             
         `mode` : str, optional
             slow_attack, fast_attack, manual
@@ -57,8 +58,8 @@ def sdr_settings(ip = "ip:192.168.3.1", frequency = 2e9, buffer_size = 1000, sam
     sdr.rx_buffer_size = buffer_size
     sdr.sample_rate = sample_rate
     sdr.gain_control_mode_chan0 = mode
-    sdr.tx_hardwaregain_chan0 = tx_gain # рекомендуемое значение от 0 до -50
-    sdr.rx_hardwaregain_chan0 = rx_gain # рекомендуемое значение от 0 до -50
+    sdr.tx_hardwaregain_chan0 = tx_gain # допустимый диапазон составляет от -90 до 0 дБ
+    sdr.rx_hardwaregain_chan0 = rx_gain # допустимый диапазон составляет от 0 до 74,5 дБ
 
     return sdr
 
@@ -107,13 +108,13 @@ def rx_cycles_buffer(sdr, num_cycles: int = 1):
         for cycle in range(num_cycles):  # Считывает num_cycles циклов Rx
             new_data = sdr.rx()
             rx.extend(new_data)
-        return rx
+        return np.array(rx)
     except NameError:
         print("Переменная 'sdr' не определена.")
         return -1
 
 
-def bpsk(bits, amplitude = 2**14, repeat: int | None = None):
+def bpsk(bits, amplitude = 2**14, In_phase = 0):
     """
     BPSK модуляция битовой последовательности
 
@@ -125,8 +126,8 @@ def bpsk(bits, amplitude = 2**14, repeat: int | None = None):
         `amplitude` : int, optional
             По умолчанию 2**14
             
-        `repeat` : int, optional
-            Число повторений бит (np.repeat)
+        `In_phase` : 0|1, optional
+            если 0 то j=0 | если 1 то j=Q
         
     Возвращает
     ---------
@@ -134,18 +135,27 @@ def bpsk(bits, amplitude = 2**14, repeat: int | None = None):
             Массив комплексных чисел, представляющих BPSK модулированные сэмплы.
     """
     bits = np.array(bits)
-    sam = bits * -2 + 1 # Маппинг 0 на 1, 1 на -1
-    sam = sam * amplitude
+    min = np.min(bits)
+    if  min == 0:               # Маппинг 0 на 1, 1 на -1
+        sam = bits * -2 + 1
+        sam = sam * amplitude
+    else:                       # -1 на -1, 1 на 1
+        sam = bits * amplitude
     
     # Векторизованное преобразование в комплексные числа
-    sam = np.vectorize(complex)(sam.real, sam.imag)
-    
-    if repeat is not None:
-        sam = np.repeat(sam, repeat)
+    sig = np.vectorize(complex)(sam.real, sam.imag)
+    if In_phase == 0:
+        sig = np.vectorize(complex)(sam.real, sam.imag)
+    elif In_phase == 1:
+        sig = np.vectorize(complex)(sam.real, sam.real)
+    else:
+        print("\nIn_phase не равна 1|0\n")
+        return -1
+    sqrt = 1/(2**0.5)
         
-    return sam
+    return np.array(sig)*sqrt
 
-def qpsk(bits, amplitude = 2**14, repeat: int | None = None):
+def qpsk(bits, amplitude = 2**14):
     """
     QPSK модуляция битовой последовательности
 
@@ -157,36 +167,31 @@ def qpsk(bits, amplitude = 2**14, repeat: int | None = None):
         `amplitude` : int, optional
             По умолчанию 2**14
         
-        `repeat` : int, optional
-            Число повторений бит (np.repeat)
-
     Возвращает
     ---------
         `samples` : numpy array
             Массив комплексных чисел, представляющих QPSK модулированные сэмплы.
     """   
-    # Проверка, является ли bits массивом NumPy, если нет, преобразование в массив
-    if not isinstance(bits, np.ndarray):
-        bits = np.array(bits)
-
-    # Убедитесь, что длина битовой последовательности кратна 2
+    # Проверьте, кратна ли длина битов 2
     if len(bits) % 2 != 0:
-        raise ValueError("Длина входной битовой последовательности должна быть четной для модуляции QPSK")
-    
-    # Разделение битов на действительную и мнимую части
-    # Маппинг 0 на 1, 1 на -1
-    in_phase = bits[::2] * -2 + 1
-    quadrature = bits[1::2] * -2 + 1
+        raise ValueError("Длина входной битовой последовательности должна быть кратна 4")
 
-    # Комбинирование в комплексные числа (QPSK modulation)
-    samples = in_phase + 1j * quadrature
+    # Создание маппинга символов 16-QAM | 3GPP TS 38.211 V17.5.0 (2023-06)
+    qam_symbols = {
+        (0, 0):  1 + 1j,
+        (0, 1):  1 - 1j,
+        (1, 0): -1 + 1j,
+        (1, 1): -1 - 1j,
+    }
+
+    # Группировка входных битов в 2-битные блоки
+    symbols = [tuple(bits[i:i+2]) for i in range(0, len(bits), 2)]
     
-    samples = samples * amplitude # умножаем на амплитуду
-    samples = np.array(samples)
-    
-    if repeat is not None:
-        samples = np.repeat(samples, repeat)
-    
+    # Сопоставляет каждый 2-битный фрагмент со сложным символом
+    sqrt = 1/(2**0.5)
+    samples = np.array([qam_symbols[s]*sqrt for s in symbols])
+    samples = samples * (amplitude)
+
     return samples
 
 def qam16(bits, amplitude = 2**14):
@@ -209,7 +214,7 @@ def qam16(bits, amplitude = 2**14):
     if len(bits) % 4 != 0:
         raise ValueError("Длина входной битовой последовательности должна быть кратна 4")
 
-    # Создание маппинга символов 16-QAM | 3GPP TS 38.211 V17.5.0 (2023-06
+    # Создание маппинга символов 16-QAM | 3GPP TS 38.211 V17.5.0 (2023-06)
     qam_symbols = {
         (0, 0, 0, 0): 1 + 1j,
         (0, 0, 0, 1): 1 + 3j,
@@ -304,17 +309,16 @@ def qpsk_synchro(rx_array, threshold, length=490, angle=225, symbol_length: int 
 def bpsk_sin(rx_array, sin):
     """
     Поиск синхронизации bpsk в сигнале rx
-    
-    sin = -1,1
-    
+        
     Параметры
     ----------
         `rx_array`: Массив сигнала
+        
         `sin`: массив синхронизации
     
     Возвращает
     --------
-        `rx_array`: NParray
+        `rx_array`: numpy array
             Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
     """
     import mylib as ml
@@ -325,7 +329,7 @@ def bpsk_sin(rx_array, sin):
     # Поиск второй синхронизации
     i_cor_end = 0
     for i in range(len(cor)-1, 0, -1): 
-        if abs(cor[i]) > 0.99:
+        if abs(cor[i]) > 0.95:
             i_cor_end = i
             break
             

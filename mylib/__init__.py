@@ -49,7 +49,7 @@ def str_to_bits(str: str):
         bits = bin(byte)[2:].zfill(8)  # Преобразование в биты
         bit_array.extend([int(bit) for bit in bits])
 
-    return bit_array
+    return np.array(bit_array)
 
 def bits_to_str(bit_array, b_start: int | None = None, b_stop: int | None = None):
     """
@@ -163,6 +163,10 @@ def autocorr(x, y):
     """
     
     arr = []
+    if len(x) <= len(y):
+        print('Длинна X меньше длинны Y')
+        return -1
+    
     for i in range(len(x)-len(y)+1):
         xx = x[i:(i+len(y))]
         # match_count = 0
