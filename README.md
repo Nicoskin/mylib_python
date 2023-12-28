@@ -5,7 +5,8 @@
 ### Способы подключения 
 ```
 import mylib as ml
-from mylib.sdr import *
+ИЛИ
+from mylib import *
 ```
 
 
@@ -30,7 +31,8 @@ rx_cycles_buffer()
 bpsk()
 qpsk()
 qam16()
+qam64()
 
 qpsk_synchro()
-bpsk_sin()
+bpsk_synchro()
 ```
