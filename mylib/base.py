@@ -3,7 +3,7 @@
 - str_to_bits()
 - bits_to_str()
 - merge_arr()
-- correlation()
+- corr_no_shift()
 - corr_array()
 - autocorr()
 
@@ -33,30 +33,21 @@ def str_to_bits(str: str):
 
     return np.array(bit_array)
 
-def bits_to_str(bit_array, b_start: int | None = None, b_stop: int | None = None):
+def bits_to_str(bit_array):
     """
     Преобразует битовую последовательность в строку ASCII.
 
     Параметры
     ----------
         `bit_array`: Битовая последовательность.
-
-        `b_start`: (optional) удалить в начале
         
-        `b_stop`: (optional) удалить в конце
-
     Возвращает
     --------
         `decoded_str`: str
             Раскодированная строка ASCII.
     """
     bit_array = np.array(bit_array)
-    if b_start is not None and b_stop is not None:
-        # Удаляем добавленные единицы в начале и в конце
-        bit_array = bit_array[b_start:-b_stop]
-    elif b_start is not None:
-        # Удаляем добавленные единицы в начале
-        bit_array = bit_array[b_start:]
+    
 
     # Разбиваем биты на байты (по 8 бит в каждом)
     bytes_list = [bit_array[i:i + 8] for i in range(0, len(bit_array), 8)]
@@ -83,7 +74,7 @@ def merge_arr(x,y):
     c = np.array(x+y)
     return c
 
-def correlation(x, y, norm=True):
+def corr_no_shift(x, y, norm=True):
     """
     Вычисляет взаимную корреляцию двух одномерных массивов(без смещения)
     
@@ -124,7 +115,7 @@ def corr_array(x, y):
     arr = []
     for i in range(len(x)-len(y)+1):
         xx = x[i:(i+len(y))]
-        arr.append(correlation(xx, y))
+        arr.append(corr_no_shift(xx, y))
     arr = np.array(arr)
     return arr
 
@@ -151,13 +142,6 @@ def autocorr(x, y):
     
     for i in range(len(x)-len(y)+1):
         xx = x[i:(i+len(y))]
-        # match_count = 0
-        # for j in range(len(y)):
-        #     if xx[j] == y[j]:
-        #         match_count += 1
-        # p = (match_count - len(y) / 2) / (len(y) / 2)
-        # arr.append(p)
-        
         corr = np.dot(xx, y) / (np.linalg.norm(xx) * np.linalg.norm(y))
         arr.append(corr)
     

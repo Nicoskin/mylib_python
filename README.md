@@ -14,11 +14,10 @@ from mylib.test import *
 
 ### mylib.base (функции стандарт)
 ```
-corr()
 str_to_bits()
 bits_to_str()
 merge_arr()
-correlation()
+corr_no_shift()
 corr_array()
 autocorr()
 ```
