@@ -19,15 +19,15 @@ MyLib
 - tx_sig()
 - rx_cycles_buffer()
 
-Модуляция:
+`Modulation`:
     - bpsk()
+        - bpsk_synchro()
     - qpsk()
-        - qpsk_synchro()
     - qam16()
-    - bpsk_synchro()
     - qam64()
    
 """
 
 from .base import *
 from .sdr import *
+from .modulation import *
