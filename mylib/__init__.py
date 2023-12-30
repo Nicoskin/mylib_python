@@ -31,3 +31,4 @@ MyLib
 from .base import *
 from .sdr import *
 from .modulation import *
+from .plots import *

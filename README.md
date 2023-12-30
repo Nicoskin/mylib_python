@@ -45,3 +45,8 @@ bpsk_synchro()
 check_hack()
 fast_qpsk()
 ```
+
+### mylib.plots
+```
+cool_scatter()
+```
