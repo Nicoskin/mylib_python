@@ -7,6 +7,9 @@
 - qam16()
 - qam64()
 
+`Демодуляция`
+- dem_qpsk()
+
 """
 
 import numpy as np
@@ -227,3 +230,34 @@ def qam64(bits, amplitude = 2**14):
     samples = samples * (amplitude)
 
     return samples
+
+
+def dem_qpsk(symbols):
+    """
+    Дешифровка qpsk символов
+
+    Параметры
+    ---------
+        `symbols`: array
+            Символы qpsk
+
+    Возвращает
+    ---------
+        `decoded_bits_array` : numpy array
+            
+    """
+    
+    def demodulate_qpsk_symbol(symbol):
+        if np.real(symbol) > 0:
+            if np.imag(symbol) > 0:
+                return np.array([0, 0])
+            else:
+                return np.array([0, 1])
+        else:
+            if np.imag(symbol) > 0:
+                return np.array([1, 0])
+            else:
+                return np.array([1, 1])
+
+    decoded_bits_array = np.array([demodulate_qpsk_symbol(symbol) for symbol in symbols])
+    return decoded_bits_array.flatten()
