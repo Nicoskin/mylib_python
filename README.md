@@ -40,13 +40,16 @@ qam64()
 bpsk_synchro()
 ```
 
+### mylib.plots
+```
+cool_scatter()
+cool_plot()
+angle_scatter()
+```
+
 ### mylib.test
 ```
 check_hack()
 fast_qpsk()
 ```
 
-### mylib.plots
-```
-cool_scatter()
-```

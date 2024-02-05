@@ -36,4 +36,6 @@ def fast_qpsk(ip: str = "ip:192.168.3.1", str: str = 'ice cream', num_cycles: in
     tx_sig(sdr, signal)
     rx = rx_cycles_buffer(sdr, num_cycles)
     
+    sdr.tx_destroy_buffer()
+    
     return rx

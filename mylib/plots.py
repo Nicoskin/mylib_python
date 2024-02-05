@@ -120,7 +120,6 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
     if show_plot is True:
         plt.show()
 
-# добавить изменение радиуса точек по мере отдаления от начала кfординат
 def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=True, print_stats=False):
     if not isinstance(x, np.ndarray):  # Проверка на numpy
         x = np.array(x)
@@ -166,16 +165,7 @@ def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", sho
     r = np.linspace(0.0, 0.8, len(an))
     x = r * np.cos(an)
     y = r * np.sin(an)
-    arr = x + y * 1j
-    
-    # for i in range(len(an)):
-    #     arr[i] = arr[i] * np.exp(1j * (0.0051*i))
-    
-    #cool_scatter(arr, show_plot=False, name="angle_scatter")
-    
-    # r = np.linspace(0.0, 0.8, len(aaa))
-    # x = r * np.cos(aaa)
-    # y = r * np.sin(aaa)
+
     cool_scatter_dev(x, y, show_plot=False, name="angle_scatter")
 
     if show_plot is True:
