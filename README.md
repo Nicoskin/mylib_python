@@ -1,6 +1,15 @@
 В папке библиотеки написать:    
 `pip install -e .`
 
+<details >
+<summary>Версии библиотек</summary>
+
+matplotlib        3.8.2     
+numpy             1.26.2        
+typing_extensions 4.9.0     
+pyadi-iio         0.0.16        
+
+</details>
 
 ### Способы подключения 
 ```
