@@ -1,16 +1,8 @@
-"""
-`Test`
-
-- check_hack()
-- fast_qpsk()
-"""
-
-
-from .sdr import *
+from ..sdr import *
 
 def check_hack(ip = "ip:192.168.3.1"):
     """
-    Проверяет была ли SDR взломана
+    Проверяет была ли SDR "взломана"
     """
     try:
         sdr = sdr_settings(ip, frequency=75e6)
@@ -26,7 +18,7 @@ def fast_qpsk(ip: str = "ip:192.168.3.1", str: str = 'ice cream', num_cycles: in
     Передаёт 'ice cream' и получает 1000 сэмплов (возвращает их)
     """
     
-    from .base import str_to_bits
+    from ..base import str_to_bits
     from numpy import repeat
     
     sdr = sdr_settings(ip)

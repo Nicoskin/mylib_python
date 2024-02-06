@@ -2,30 +2,39 @@
 MyLib
 =====
 
-  import mylib as ml
+    import mylib as ml
+    
+    import mylib.test as mltest
   
 Функции
 --------
 `BASE`
-- str_to_bits()
-- bits_to_str()
-- merge_arr()
-- correlation()
-- corr_array()
-- autocorr()
+- str_to_bits
+- bits_to_str
+- merge_arr
+- correlation
+- corr_array
+- auto_corr
 
 `SDR`
-- sdr_settings()
-- tx_sig()
-- rx_cycles_buffer()
+- sdrSettings
+- txSig
+- rxCyclesBuffer
 
 `Modulation`:
-    - bpsk()
-        - bpsk_synchro()
-    - qpsk()
-    - qam16()
-    - qam64()
-   
+- bpsk
+    - bpskSynchro
+- qpsk
+- qam16
+- qam64
+- qpskDem
+
+`Plots`
+- cool_scatter
+- cool_plot
+- angle_scatter
+
+``by nicoskin``
 """
 
 from .base import *

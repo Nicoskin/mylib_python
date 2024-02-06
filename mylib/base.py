@@ -1,11 +1,11 @@
 """
 `BASE`
-- str_to_bits()
-- bits_to_str()
-- merge_arr()
-- corr_no_shift()
-- corr_array()
-- autocorr()
+- str_to_bits
+- bits_to_str
+- merge_arr
+- corr_no_shift
+- corr_array
+- auto_corr
 
 """
 
@@ -119,7 +119,7 @@ def corr_array(x, y):
     arr = np.array(arr)
     return arr
 
-def autocorr(x, y):
+def auto_corr(x, y):
     """
     Автокорреляция двух массивов 
     

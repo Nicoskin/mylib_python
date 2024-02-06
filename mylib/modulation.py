@@ -1,14 +1,14 @@
 """
 `Модуляция`
 
-- bpsk()
-    - bpsk_synchro()
-- qpsk()
-- qam16()
-- qam64()
+- bpsk
+    - bpskSynchro
+- qpsk
+- qam16
+- qam64
 
 `Демодуляция`
-- dem_qpsk()
+- dem_qpsk
 
 """
 
@@ -144,7 +144,7 @@ def qam16(bits, amplitude = 2**14):
 
     return samples
 
-def bpsk_synchro(rx_array, syn):
+def bpskSynchro(rx_array, syn):
     """
     Поиск синхронизации bpsk в сигнале rx
         

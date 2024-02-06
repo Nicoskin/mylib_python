@@ -1,8 +1,8 @@
 """
 `SDR`
-- sdr_settings()
-- tx_sig()
-- rx_cycles_buffer()
+- sdr_settings
+- tx_sig
+- rx_cycles_buffer
   
 """
 
