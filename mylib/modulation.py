@@ -2,7 +2,7 @@
 `Модуляция`
 
 - bpsk
-    - bpskSynchro
+    - bpsk_synchro
 - qpsk
 - qam16
 - qam64
@@ -144,43 +144,6 @@ def qam16(bits, amplitude = 2**14):
 
     return samples
 
-def bpskSynchro(rx_array, syn):
-    """
-    Поиск синхронизации bpsk в сигнале rx
-        
-    Параметры
-    ----------
-        `rx_array`: Массив сигнала
-        
-        `syn`: массив синхронизации
-    
-    Возвращает
-    --------
-        `rx_array`: numpy array
-            Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
-    """
-    import mylib as ml
-    cor = ml.autocorr(rx_array.real, syn)
-    
-    i_cor = np.argmax(abs(cor), axis=0)
-    
-    # Поиск второй синхронизации
-    i_cor_end = 0
-    for i in range(len(cor)-1, 0, -1): 
-        if abs(cor[i]) > 0.95:
-            i_cor_end = i
-            break
-            
-    if i_cor_end == 0:
-        rx_array = rx_array[i_cor:]
-    else:
-        rx_array = rx_array[i_cor:i_cor_end]
-    
-    angle = np.angle(rx_array[0]) # угол синхры
-    rx_array = rx_array * np.exp(1j * -angle) # разворот на нужный угол
-    
-    return rx_array
-
 def qam64(bits, amplitude = 2**14):
     """64-QAM модуляция для битовой последовательности
 
@@ -230,6 +193,44 @@ def qam64(bits, amplitude = 2**14):
     samples = samples * (amplitude)
 
     return samples
+
+
+def bpsk_synchro(rx_array, syn):
+    """
+    Поиск синхронизации bpsk в сигнале rx
+        
+    Параметры
+    ----------
+        `rx_array`: Массив сигнала
+        
+        `syn`: массив синхронизации
+    
+    Возвращает
+    --------
+        `rx_array`: numpy array
+            Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
+    """
+    import mylib as ml
+    cor = ml.autocorr(rx_array.real, syn)
+    
+    i_cor = np.argmax(abs(cor), axis=0)
+    
+    # Поиск второй синхронизации
+    i_cor_end = 0
+    for i in range(len(cor)-1, 0, -1): 
+        if abs(cor[i]) > 0.95:
+            i_cor_end = i
+            break
+            
+    if i_cor_end == 0:
+        rx_array = rx_array[i_cor:]
+    else:
+        rx_array = rx_array[i_cor:i_cor_end]
+    
+    angle = np.angle(rx_array[0]) # угол синхры
+    rx_array = rx_array * np.exp(1j * -angle) # разворот на нужный угол
+    
+    return rx_array
 
 
 def dem_qpsk(symbols):

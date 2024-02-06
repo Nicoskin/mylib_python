@@ -11,8 +11,7 @@ def check_hack(ip = "ip:192.168.3.1"):
         print("НЕ ВЗЛОМАНО")
         print("ssh root@192.168.2.1 | analog | fw_setenv attr_name compatible | fw_setenv attr_val ad9364 | reboot")
         print("  ssh-keygen -f “/home/plutosdr/.ssh/known_hosts” -R “192.168.2.1”   ")
-        
-        
+              
 def fast_qpsk(ip: str = "ip:192.168.3.1", str: str = 'ice cream', num_cycles: int = 1):
     """
     Передаёт 'ice cream' и получает 1000 сэмплов (возвращает их)

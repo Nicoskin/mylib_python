@@ -8,48 +8,49 @@ import mylib as ml
 ИЛИ
 from mylib import *
 
-from mylib.test import * 
+import mylib.test as mltest
 ```
 
 
 ### mylib.base (функции стандарт)
 ```
-str_to_bits()
-bits_to_str()
-merge_arr()
-corr_no_shift()
-corr_array()
-autocorr()
+str_to_bits
+bits_to_str
+merge_arr
+corr_no_shift
+corr_array
+autocorr
 ```
 
 
 ### mylib.sdr
 ```
-sdr_settings()
-tx_sig()
-rx_cycles_buffer()
+sdr_settings
+tx_sig
+rx_cycles_buffer
 ```
 
 ### mylib.modulation
 ```
-bpsk()
-qpsk()
-qam16()
-qam64()
+bpsk
+qpsk
+qam16
+qam64
 
-bpsk_synchro()
+bpsk_synchro
+dem_qpsk
 ```
 
 ### mylib.plots
 ```
-cool_scatter()
-cool_plot()
-angle_scatter()
+cool_scatter
+cool_plot
+angle_scatter
 ```
 
 ### mylib.test
 ```
-check_hack()
-fast_qpsk()
+check_hack
+fast_qpsk
 ```
 
