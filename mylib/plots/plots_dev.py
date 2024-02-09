@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def cool_scatter_dev(x, y=None, show_plot=True, name="cool_scatter"):
+def _cool_scatter_dev(x, y=None, show_plot=True, name="cool_scatter"):
     fig, ax = plt.subplots(figsize=(7, 7), num=name)
     fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
     ax.grid(linewidth=0.5)

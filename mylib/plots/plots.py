@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from typing import Literal
 
-from .plots_dev import *
+from .plots_dev import _cool_scatter_dev
 
 def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
     fig, ax = plt.subplots(figsize=(7, 7), num=name)
@@ -126,7 +126,7 @@ def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", sho
     x = r * np.cos(an)
     y = r * np.sin(an)
 
-    cool_scatter_dev(x, y, show_plot=False, name="angle_scatter")
+    _cool_scatter_dev(x, y, show_plot=False, name="angle_scatter")
 
     if show_plot is True:
         plt.show()
