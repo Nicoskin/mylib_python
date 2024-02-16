@@ -21,18 +21,19 @@ MyLib
 - txSig
 - rxCyclesBuffer
 
-`Modulation`:
+`Modulation`
 - bpsk
-    - bpskSynchro
 - qpsk
 - qam16
 - qam64
-- qpskDem
+* qpskDem
+* bpskSynchro
 
 `Plots`
 - cool_scatter
 - cool_plot
 - angle_scatter
+- eye_pattern
 
 ``by nicoskin``
 """

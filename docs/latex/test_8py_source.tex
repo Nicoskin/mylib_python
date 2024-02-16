@@ -1,0 +1,38 @@
+\doxysection{test.\+py}
+\hypertarget{test_8py_source}{}\label{test_8py_source}\index{D:/Documents/0\_\_University/Python/mylib\_python/mylib/test/test.py@{D:/Documents/0\_\_University/Python/mylib\_python/mylib/test/test.py}}
+\mbox{\hyperlink{test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00001}\mbox{\hyperlink{namespacemylib_1_1test_1_1test}{00001}}\ \textcolor{keyword}{from}\ ..sdr\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00003}\mbox{\hyperlink{namespacemylib_1_1test_1_1test_a9c270f097ed5783b1a8f4e2aadae6f30}{00003}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1test_1_1test_a9c270f097ed5783b1a8f4e2aadae6f30}{check\_hack}}(ip\ =\ "{}ip:192.168.3.1\textcolor{stringliteral}{"{}):}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00004}00004\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00005}00005\ \textcolor{stringliteral}{\ \ \ \ Проверяет\ была\ ли\ SDR\ "{}взломана"{}}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00007}00007\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00008}00008\ \ \ \ \ \ \ \ \ sdr\ =\ \mbox{\hyperlink{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}{sdr\_settings}}(ip,\ frequency=75e6)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00009}00009\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}SDR\ была\ взломана\ ❤"{}})}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00011}00011\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}НЕ\ ВЗЛОМАНО"{}})}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00012}00012\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}ssh\ root@192.168.2.1\ |\ analog\ |\ fw\_setenv\ attr\_name\ compatible\ |\ fw\_setenv\ attr\_val\ ad9364\ |\ reboot"{}})}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\ \ ssh-\/keygen\ -\/f\ “/home/plutosdr/.ssh/known\_hosts”\ -\/R\ “192.168.2.1”\ \ \ "{}})}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00015}\mbox{\hyperlink{namespacemylib_1_1test_1_1test_a51ac5730eec93b9e38b3f32b340044ab}{00015}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1test_1_1test_a51ac5730eec93b9e38b3f32b340044ab}{fast\_qpsk}}(ip:\ str\ =\ \textcolor{stringliteral}{"{}ip:192.168.3.1"{}},\ str:\ str\ =\ \textcolor{stringliteral}{'ice\ cream'},\ num\_cycles:\ int\ =\ 1):}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00016}00016\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ Передаёт\ 'ice\ cream'\ и\ получает\ 1000\ сэмплов\ (возвращает\ их)}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00018}00018\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00019}00019\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{from}\ ..base\ \textcolor{keyword}{import}\ str\_to\_bits}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{from}\ numpy\ \textcolor{keyword}{import}\ repeat}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00022}00022\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00023}00023\ \ \ \ \ sdr\ =\ \mbox{\hyperlink{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}{sdr\_settings}}(ip)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00024}00024\ \ \ \ \ bits\ =\ \mbox{\hyperlink{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399}{str\_to\_bits}}(str)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00025}00025\ \ \ \ \ signal\ =\ repeat(bits,\ 10)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00026}00026\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5}{tx\_sig}}(sdr,\ signal)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00028}00028\ \ \ \ \ rx\ =\ \mbox{\hyperlink{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a}{rx\_cycles\_buffer}}(sdr,\ num\_cycles)}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00029}00029\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00030}00030\ \ \ \ \ sdr.tx\_destroy\_buffer()}
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00031}00031\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{test_8py_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{return}\ rx}
+
+\end{DoxyCode}

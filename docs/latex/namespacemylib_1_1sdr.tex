@@ -1,0 +1,110 @@
+\doxysection{mylib.\+sdr Namespace Reference}
+\hypertarget{namespacemylib_1_1sdr}{}\label{namespacemylib_1_1sdr}\index{mylib.sdr@{mylib.sdr}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}{sdr\+\_\+settings}} (ip="{}ip\+:192.\+168.\+3.\+1"{}, frequency=2e9, buffer\+\_\+size=1e3, sample\+\_\+rate=1e6, tx\+\_\+gain=0, rx\+\_\+gain=0, mode=\textquotesingle{}manual\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5}{tx\+\_\+sig}} (sdr, samples, bool tx\+\_\+cycle=True)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a}{rx\+\_\+cycles\+\_\+buffer}} (sdr, int num\+\_\+cycles=1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}`SDR`
+- sdr_settings
+- tx_sig
+- rx_cycles_buffer\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a}\label{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a} 
+\index{mylib.sdr@{mylib.sdr}!rx\_cycles\_buffer@{rx\_cycles\_buffer}}
+\index{rx\_cycles\_buffer@{rx\_cycles\_buffer}!mylib.sdr@{mylib.sdr}}
+\doxysubsubsection{\texorpdfstring{rx\_cycles\_buffer()}{rx\_cycles\_buffer()}}
+{\footnotesize\ttfamily mylib.\+sdr.\+rx\+\_\+cycles\+\_\+buffer (\begin{DoxyParamCaption}\item[{}]{sdr,  }\item[{int }]{num\+\_\+cycles = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Циклически получает сигнал с RX 
+
+!!! Нужна настроенная sdr !!!
+
+Параметры
+--------
+    `sdr` : переменная sdr
+    
+    `num_cycles`: сколько раз получает буфер rx
+
+Возвращает
+----------
+    `rx`: выводит [num_cycles] циклов RX\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sdr_8py_source_l00088}{88}} of file \mbox{\hyperlink{sdr_8py_source}{sdr.\+py}}.
+
+\Hypertarget{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}\label{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f} 
+\index{mylib.sdr@{mylib.sdr}!sdr\_settings@{sdr\_settings}}
+\index{sdr\_settings@{sdr\_settings}!mylib.sdr@{mylib.sdr}}
+\doxysubsubsection{\texorpdfstring{sdr\_settings()}{sdr\_settings()}}
+{\footnotesize\ttfamily mylib.\+sdr.\+sdr\+\_\+settings (\begin{DoxyParamCaption}\item[{}]{ip = {\ttfamily "{}ip\+:192.168.3.1"{}},  }\item[{}]{frequency = {\ttfamily 2e9},  }\item[{}]{buffer\+\_\+size = {\ttfamily 1e3},  }\item[{}]{sample\+\_\+rate = {\ttfamily 1e6},  }\item[{}]{tx\+\_\+gain = {\ttfamily 0},  }\item[{}]{rx\+\_\+gain = {\ttfamily 0},  }\item[{}]{mode = {\ttfamily \textquotesingle{}manual\textquotesingle{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Базовые настройки sdr
+
+sdr = sdr_settings("ip:192.168.3.1")
+sdr = sdr_settings("ip:192.168.3.1", 2300e6+(2e6*2), 1000, 1e6,0,30) # type: ignore
+
+Параметры
+----------
+    `ip` : "ip:192.168.3.1" / "ip:192.168.2.1"
+    
+    `frequency` : частота дискретизации
+        от 325 [МГц] до 3.8 [ГГц] | 
+        hacked 70 [МГц] до 6 [ГГц]
+        
+    `buffer_size` = 1e3 [samples]
+    
+    `sample_rate` = 1e6 [samples]
+    
+    `tx_gain`: сила передачи [dBm]
+        рекомендуемое значение от -90 до 0 [дБ]
+        
+    `rx_gain`: чувствительность приёма [dBm]
+        рекомендуемое значение от 0 до 74,5 [дБ]
+        
+    `mode` : str, optional
+        slow_attack, fast_attack, manual
+        
+Возвращает
+----------  
+    `sdr`: настроенный класс "sdr"
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sdr_8py_source_l00009}{9}} of file \mbox{\hyperlink{sdr_8py_source}{sdr.\+py}}.
+
+\Hypertarget{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5}\label{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5} 
+\index{mylib.sdr@{mylib.sdr}!tx\_sig@{tx\_sig}}
+\index{tx\_sig@{tx\_sig}!mylib.sdr@{mylib.sdr}}
+\doxysubsubsection{\texorpdfstring{tx\_sig()}{tx\_sig()}}
+{\footnotesize\ttfamily mylib.\+sdr.\+tx\+\_\+sig (\begin{DoxyParamCaption}\item[{}]{sdr,  }\item[{}]{samples,  }\item[{bool }]{tx\+\_\+cycle = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Функция передает samples на TX
+
+!!! Нужна настроенная sdr !!!
+
+Параметры
+----------
+    `sdr` : переменная sdr
+    
+    `samples` : значения сэмплов которые нужно передать
+    
+    `tx_cycle`: по стандарту передает в цикле
+    
+Не забывай сбрасывать буфер в конце проги 
+    " sdr.tx_destroy_buffer() "
+^^^^
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sdr_8py_source_l00063}{63}} of file \mbox{\hyperlink{sdr_8py_source}{sdr.\+py}}.
+

@@ -1,11 +1,23 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import Literal
+from pylab import gcf
 
 from .plots_dev import _cool_scatter_dev
 
 def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
-    fig, ax = plt.subplots(figsize=(7, 7), num=name)
+    """
+    Создает точечную диаграмму с красивыми визуализациями.
+
+    Параметры:
+        `x`: (подобный массиву): x-координаты точек.
+        `y`: (подобный массиву, необязательный): y-координаты точек. Если не указано, мнимая часть x будет использоваться в качестве y-координат.
+        `show_plot`: (логическое значение, необязательный): Определяет, нужно ли отображать диаграмму. По умолчанию True.
+        `name`:(строка, необязательный): Название окна диаграммы. По умолчанию "cool_scatter".
+    """
+    fig, ax = plt.subplots(figsize=(7, 7), num=3454)
+    fig = gcf()
+    fig.canvas.manager.set_window_title(name)
     fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
     ax.grid(linewidth=0.5)
     ax.tick_params(
@@ -36,6 +48,21 @@ def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
         plt.show()
 
 def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=True):
+    """
+    Создает красивый график на основе входных данных.
+
+    Параметры:
+    - x: одномерный массив или список значений для оси x.
+    - y: одномерный массив или список значений для оси y. Если не указан, будет использовано мнимая часть x.
+    - gap: тип разрыва на графике. Может быть "none" (без разрыва), "snake" (змеевидный разрыв) или "jump" (скачок разрыв).
+    - show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
+
+    Возвращает:
+    Ничего.
+
+    Пример использования:
+    cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
+    """
     if not isinstance(x, np.ndarray):  # Проверка на numpy
         x = np.array(x)
 
@@ -43,7 +70,9 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
         y = x.imag
         x = x.real
 
-    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num="cool_plot")
+    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num=87954)
+    fig = gcf()
+    fig.canvas.manager.set_window_title("cool_plot")
     fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, hspace=0.1)
     ax1.plot(x)
     ax1.plot(y)
@@ -81,6 +110,22 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
         plt.show()
 
 def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=True, print_stats=False):
+    """
+    Создает scatter plot для угловых координат.
+    
+    Параметры:
+    - x: одномерный массив или список, содержащий значения для оси x.
+    - y: одномерный массив или список, содержащий значения для оси y. Если не указан, то используется мнимая часть x, а вещественная часть x становится осью x.
+    - gap: строка, определяющая тип разрыва между значениями углов. Возможные значения: "none" (без разрыва), "snake" (змеевидный разрыв), "jump" (скачкообразный разрыв). По умолчанию "none".
+    - show_plot: булево значение, указывающее, нужно ли отображать график. По умолчанию True.
+    - print_stats: булево значение, указывающее, нужно ли выводить статистику. По умолчанию False.
+    
+    Возвращает:
+    - None
+    
+    Пример использования:
+    >>> angle_scatter([1, 2, 3, 4, 5], gap="snake", show_plot=True, print_stats=True)
+    """
     if not isinstance(x, np.ndarray):  # Проверка на numpy
         x = np.array(x)
     
@@ -129,4 +174,46 @@ def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", sho
     _cool_scatter_dev(x, y, show_plot=False, name="angle_scatter")
 
     if show_plot is True:
+        plt.show()
+
+def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
+    """
+    Функция eye_pattern отображает глазковую диаграмму для заданного сигнала.
+    
+    Параметры:
+    - x: одномерный массив или список, представляющий вещественную часть сигнала или комплексный сигнал.
+    - y: одномерный массив или список, представляющий мнимую часть сигнала. Если не указан, будет использована мнимая часть x.
+    - symbol_len: длина символа, используемая для разделения сигнала на символы. По умолчанию равна 10.
+    - show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
+    """
+    if not isinstance(x, np.ndarray):  # Проверка на numpy
+        x = np.array(x)
+
+    if y is None:
+        y = x.imag
+        x = x.real
+    
+    ost = len(x) % symbol_len 
+    x = np.array(x[:-ost])
+    y = np.array(y[:-ost])
+    arr = x + y * 1j
+    
+    arr = np.array(arr)
+
+    arr = arr.reshape(-1, symbol_len)
+
+    fig, ax = plt.subplots(figsize=(8, 6), num=3123454)
+    fig = gcf()
+    fig.canvas.manager.set_window_title('eye_pattern')
+    fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
+    ax.grid(linewidth=0.5)
+
+    axX = np.arange(1,symbol_len+1)
+
+    for p in arr:
+        ax.plot(axX, p, 'o-')
+        
+    plt.xticks(axX)
+    
+    if show_plot:
         plt.show()

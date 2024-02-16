@@ -1,0 +1,179 @@
+\doxysection{mylib.\+modulation Namespace Reference}
+\hypertarget{namespacemylib_1_1modulation}{}\label{namespacemylib_1_1modulation}\index{mylib.modulation@{mylib.modulation}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_a36405020522f4df11e8bd71b93aa58cf}{bpsk}} (bits, amplitude=2 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14, quadrature=0)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_a28d693bef70d5bcdf42fe3256f3f69cc}{qpsk}} (bits, amplitude=2 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_aa68ca1fec8d07828efda106d476573f7}{qam16}} (bits, amplitude=2 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_a7a05f0ed618710d6a71b275084a1b064}{qam64}} (bits, amplitude=2 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_a202ea570840d8b57d892e5ecdb9e4758}{bpsk\+\_\+synchro}} (rx\+\_\+array, syn)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1modulation_a9f133ea977cbf984dafe3429f0b3570d}{dem\+\_\+qpsk}} (symbols)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}`Модуляция`
+
+- bpsk
+    - bpsk_synchro
+- qpsk
+- qam16
+- qam64
+
+`Демодуляция`
+- dem_qpsk\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemylib_1_1modulation_a36405020522f4df11e8bd71b93aa58cf}\label{namespacemylib_1_1modulation_a36405020522f4df11e8bd71b93aa58cf} 
+\index{mylib.modulation@{mylib.modulation}!bpsk@{bpsk}}
+\index{bpsk@{bpsk}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{bpsk()}{bpsk()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+bpsk (\begin{DoxyParamCaption}\item[{}]{bits,  }\item[{}]{amplitude = {\ttfamily 2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14},  }\item[{}]{quadrature = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}BPSK модуляция битовой последовательности
+
+Параметры
+---------
+    `bits`: array
+        Битовая последовательность (кратна 4)
+    
+    `amplitude` : int, optional
+        По умолчанию 2**14
+        
+    `In_phase` : 0|1, optional
+        если 0 то Q=0 | если 1 то Q=I
+    
+Возвращает
+---------
+    `samples` : numpy array
+        Массив комплексных чисел, представляющих BPSK модулированные сэмплы.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00017}{17}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+
+\Hypertarget{namespacemylib_1_1modulation_a202ea570840d8b57d892e5ecdb9e4758}\label{namespacemylib_1_1modulation_a202ea570840d8b57d892e5ecdb9e4758} 
+\index{mylib.modulation@{mylib.modulation}!bpsk\_synchro@{bpsk\_synchro}}
+\index{bpsk\_synchro@{bpsk\_synchro}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{bpsk\_synchro()}{bpsk\_synchro()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+bpsk\+\_\+synchro (\begin{DoxyParamCaption}\item[{}]{rx\+\_\+array,  }\item[{}]{syn }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Поиск синхронизации bpsk в сигнале rx
+    
+Параметры
+----------
+    `rx_array`: Массив сигнала
+    
+    `syn`: массив синхронизации
+
+Возвращает
+--------
+    `rx_array`: numpy array
+        Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00198}{198}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+
+\Hypertarget{namespacemylib_1_1modulation_a9f133ea977cbf984dafe3429f0b3570d}\label{namespacemylib_1_1modulation_a9f133ea977cbf984dafe3429f0b3570d} 
+\index{mylib.modulation@{mylib.modulation}!dem\_qpsk@{dem\_qpsk}}
+\index{dem\_qpsk@{dem\_qpsk}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{dem\_qpsk()}{dem\_qpsk()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+dem\+\_\+qpsk (\begin{DoxyParamCaption}\item[{}]{symbols }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Дешифровка qpsk символов
+
+Параметры
+---------
+    `symbols`: array
+        Символы qpsk
+
+Возвращает
+---------
+    `decoded_bits_array` : numpy array\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00236}{236}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+
+\Hypertarget{namespacemylib_1_1modulation_aa68ca1fec8d07828efda106d476573f7}\label{namespacemylib_1_1modulation_aa68ca1fec8d07828efda106d476573f7} 
+\index{mylib.modulation@{mylib.modulation}!qam16@{qam16}}
+\index{qam16@{qam16}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{qam16()}{qam16()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+qam16 (\begin{DoxyParamCaption}\item[{}]{bits,  }\item[{}]{amplitude = {\ttfamily 2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}16-QAM модуляция для битовой последовательности
+
+Параметры
+---------
+    `bits`: array
+        Битовая последовательность (кратна 4)
+    
+    `amplitude` : int, optional
+        По умолчанию 2**14
+
+Возвращает
+---------
+    `samples` : numpy array
+        Массив комплексных чисел, представляющих 16-QAM модулированные сэмплы.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00097}{97}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+
+\Hypertarget{namespacemylib_1_1modulation_a7a05f0ed618710d6a71b275084a1b064}\label{namespacemylib_1_1modulation_a7a05f0ed618710d6a71b275084a1b064} 
+\index{mylib.modulation@{mylib.modulation}!qam64@{qam64}}
+\index{qam64@{qam64}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{qam64()}{qam64()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+qam64 (\begin{DoxyParamCaption}\item[{}]{bits,  }\item[{}]{amplitude = {\ttfamily 2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}64-QAM модуляция для битовой последовательности
+
+Параметры
+---------
+    `bits`: array
+        Битовая последовательность (кратна 6)
+    
+    `amplitude` : int, optional
+        По умолчанию 2**14
+
+Возвращает
+---------
+    `samples` : numpy array
+        Массив комплексных чисел, представляющих 64-QAM модулированные сэмплы.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00147}{147}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+
+\Hypertarget{namespacemylib_1_1modulation_a28d693bef70d5bcdf42fe3256f3f69cc}\label{namespacemylib_1_1modulation_a28d693bef70d5bcdf42fe3256f3f69cc} 
+\index{mylib.modulation@{mylib.modulation}!qpsk@{qpsk}}
+\index{qpsk@{qpsk}!mylib.modulation@{mylib.modulation}}
+\doxysubsubsection{\texorpdfstring{qpsk()}{qpsk()}}
+{\footnotesize\ttfamily mylib.\+modulation.\+qpsk (\begin{DoxyParamCaption}\item[{}]{bits,  }\item[{}]{amplitude = {\ttfamily 2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}14} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}QPSK модуляция битовой последовательности
+
+Параметры
+---------
+    `bits`: array
+        Битовая последовательность
+    
+    `amplitude` : int, optional
+        По умолчанию 2**14
+    
+Возвращает
+---------
+    `samples` : numpy array
+        Массив комплексных чисел, представляющих QPSK модулированные сэмплы.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{modulation_8py_source_l00058}{58}} of file \mbox{\hyperlink{modulation_8py_source}{modulation.\+py}}.
+

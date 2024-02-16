@@ -1,0 +1,101 @@
+\doxysection{mylib.\+plots.\+plots Namespace Reference}
+\hypertarget{namespacemylib_1_1plots_1_1plots}{}\label{namespacemylib_1_1plots_1_1plots}\index{mylib.plots.plots@{mylib.plots.plots}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a71453b1546dc4bf6a5ee6c0bc2f7ccbb}{cool\+\_\+scatter}} (x, y=None, show\+\_\+plot=True, name="{}cool\+\_\+scatter"{})
+\item 
+\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}{cool\+\_\+plot}} (x, y=None, Literal\mbox{[}"{}none"{}, "{}snake"{}, "{}jump"{}\mbox{]} gap="{}none"{}, show\+\_\+plot=True)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}{angle\+\_\+scatter}} (x, y=None, Literal\mbox{[}"{}none"{}, "{}snake"{}, "{}jump"{}\mbox{]} gap="{}none"{}, show\+\_\+plot=True, print\+\_\+stats=False)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}{eye\+\_\+pattern}} (x, y=None, symbol\+\_\+len=10, show\+\_\+plot=True)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}\label{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9} 
+\index{mylib.plots.plots@{mylib.plots.plots}!angle\_scatter@{angle\_scatter}}
+\index{angle\_scatter@{angle\_scatter}!mylib.plots.plots@{mylib.plots.plots}}
+\doxysubsubsection{\texorpdfstring{angle\_scatter()}{angle\_scatter()}}
+{\footnotesize\ttfamily mylib.\+plots.\+plots.\+angle\+\_\+scatter (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y = {\ttfamily None},  }\item[{Literal\mbox{[}"{}none"{}, "{}snake"{}, "{}jump"{}\mbox{]} }]{gap = {\ttfamily "{}none"{}},  }\item[{}]{show\+\_\+plot = {\ttfamily True},  }\item[{}]{print\+\_\+stats = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Создает scatter plot для угловых координат.
+
+Параметры:
+- x: одномерный массив или список, содержащий значения для оси x.
+- y: одномерный массив или список, содержащий значения для оси y. Если не указан, то используется мнимая часть x, а вещественная часть x становится осью x.
+- gap: строка, определяющая тип разрыва между значениями углов. Возможные значения: "none" (без разрыва), "snake" (змеевидный разрыв), "jump" (скачкообразный разрыв). По умолчанию "none".
+- show_plot: булево значение, указывающее, нужно ли отображать график. По умолчанию True.
+- print_stats: булево значение, указывающее, нужно ли выводить статистику. По умолчанию False.
+
+Возвращает:
+- None
+
+Пример использования:
+>>> angle_scatter([1, 2, 3, 4, 5], gap="snake", show_plot=True, print_stats=True)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{plots_8py_source_l00112}{112}} of file \mbox{\hyperlink{plots_8py_source}{plots.\+py}}.
+
+\Hypertarget{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}\label{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11} 
+\index{mylib.plots.plots@{mylib.plots.plots}!cool\_plot@{cool\_plot}}
+\index{cool\_plot@{cool\_plot}!mylib.plots.plots@{mylib.plots.plots}}
+\doxysubsubsection{\texorpdfstring{cool\_plot()}{cool\_plot()}}
+{\footnotesize\ttfamily mylib.\+plots.\+plots.\+cool\+\_\+plot (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y = {\ttfamily None},  }\item[{Literal\mbox{[}"{}none"{}, "{}snake"{}, "{}jump"{}\mbox{]} }]{gap = {\ttfamily "{}none"{}},  }\item[{}]{show\+\_\+plot = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Создает красивый график на основе входных данных.
+
+Параметры:
+- x: одномерный массив или список значений для оси x.
+- y: одномерный массив или список значений для оси y. Если не указан, будет использовано мнимая часть x.
+- gap: тип разрыва на графике. Может быть "none" (без разрыва), "snake" (змеевидный разрыв) или "jump" (скачок разрыв).
+- show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
+
+Возвращает:
+Ничего.
+
+Пример использования:
+cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{plots_8py_source_l00050}{50}} of file \mbox{\hyperlink{plots_8py_source}{plots.\+py}}.
+
+\Hypertarget{namespacemylib_1_1plots_1_1plots_a71453b1546dc4bf6a5ee6c0bc2f7ccbb}\label{namespacemylib_1_1plots_1_1plots_a71453b1546dc4bf6a5ee6c0bc2f7ccbb} 
+\index{mylib.plots.plots@{mylib.plots.plots}!cool\_scatter@{cool\_scatter}}
+\index{cool\_scatter@{cool\_scatter}!mylib.plots.plots@{mylib.plots.plots}}
+\doxysubsubsection{\texorpdfstring{cool\_scatter()}{cool\_scatter()}}
+{\footnotesize\ttfamily mylib.\+plots.\+plots.\+cool\+\_\+scatter (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y = {\ttfamily None},  }\item[{}]{show\+\_\+plot = {\ttfamily True},  }\item[{}]{name = {\ttfamily "{}cool\+\_\+scatter"{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Создает точечную диаграмму с красивыми визуализациями.
+
+Параметры:
+    `x`: (подобный массиву): x-координаты точек.
+    `y`: (подобный массиву, необязательный): y-координаты точек. Если не указано, мнимая часть x будет использоваться в качестве y-координат.
+    `show_plot`: (логическое значение, необязательный): Определяет, нужно ли отображать диаграмму. По умолчанию True.
+    `name`:(строка, необязательный): Название окна диаграммы. По умолчанию "cool_scatter".
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{plots_8py_source_l00008}{8}} of file \mbox{\hyperlink{plots_8py_source}{plots.\+py}}.
+
+\Hypertarget{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}\label{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18} 
+\index{mylib.plots.plots@{mylib.plots.plots}!eye\_pattern@{eye\_pattern}}
+\index{eye\_pattern@{eye\_pattern}!mylib.plots.plots@{mylib.plots.plots}}
+\doxysubsubsection{\texorpdfstring{eye\_pattern()}{eye\_pattern()}}
+{\footnotesize\ttfamily mylib.\+plots.\+plots.\+eye\+\_\+pattern (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y = {\ttfamily None},  }\item[{}]{symbol\+\_\+len = {\ttfamily 10},  }\item[{}]{show\+\_\+plot = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Функция eye_pattern отображает глазковую диаграмму для заданного сигнала.
+
+Параметры:
+- x: одномерный массив или список, представляющий вещественную часть сигнала или комплексный сигнал.
+- y: одномерный массив или список, представляющий мнимую часть сигнала. Если не указан, будет использована мнимая часть x.
+- symbol_len: длина символа, используемая для разделения сигнала на символы. По умолчанию равна 10.
+- show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{plots_8py_source_l00179}{179}} of file \mbox{\hyperlink{plots_8py_source}{plots.\+py}}.
+

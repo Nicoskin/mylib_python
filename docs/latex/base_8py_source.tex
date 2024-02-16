@@ -1,0 +1,172 @@
+\doxysection{base.\+py}
+\hypertarget{base_8py_source}{}\label{base_8py_source}\index{D:/Documents/0\_\_University/Python/mylib\_python/mylib/base.py@{D:/Documents/0\_\_University/Python/mylib\_python/mylib/base.py}}
+\mbox{\hyperlink{base_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00001}\mbox{\hyperlink{namespacemylib_1_1base}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00002}00002\ \textcolor{stringliteral}{\`{}BASE\`{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00003}00003\ \textcolor{stringliteral}{-\/\ str\_to\_bits}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00004}00004\ \textcolor{stringliteral}{-\/\ bits\_to\_str}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00005}00005\ \textcolor{stringliteral}{-\/\ gen\_rand\_bits}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00006}00006\ \textcolor{stringliteral}{-\/\ merge\_arr}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00007}00007\ \textcolor{stringliteral}{-\/\ corr\_no\_shift}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00008}00008\ \textcolor{stringliteral}{-\/\ corr\_array}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00009}00009\ \textcolor{stringliteral}{-\/\ auto\_corr}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00010}00010\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00011}00011\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00013}00013\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00015}\mbox{\hyperlink{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399}{00015}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399}{str\_to\_bits}}(str:\ str):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00016}00016\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ Преобразовает\ строку\ в\ битовую\ последовательност(ascii)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00018}00018\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}str\`{}\ :\ строка\ которая\ кодируется}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00025}00025\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}bit\_array\`{}\ :\ numpy\ array}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00026}00026\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Закодированный\ массив\ ASCII\ (битовая\ последовательность)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00028}00028\ \ \ \ \ encoded\_bytes\ =\ str.encode(\textcolor{stringliteral}{'ascii'})}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00029}00029\ \ \ \ \ \textcolor{comment}{\#\ Преобразование\ байтов\ в\ массив\ битов}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00030}00030\ \ \ \ \ bit\_array\ =\ []}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{for}\ byte\ \textcolor{keywordflow}{in}\ encoded\_bytes:}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ bits\ =\ bin(byte)[2:].zfill(8)\ \ \textcolor{comment}{\#\ Преобразование\ в\ биты}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ bit\_array.extend([int(bit)\ \textcolor{keywordflow}{for}\ bit\ \textcolor{keywordflow}{in}\ bits])}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{return}\ np.array(bit\_array)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00037}\mbox{\hyperlink{namespacemylib_1_1base_af8b789778fcc7d9826e99e6c33425e8d}{00037}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_af8b789778fcc7d9826e99e6c33425e8d}{bits\_to\_str}}(bit\_array):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00038}00038\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ Преобразует\ битовую\ последовательность\ в\ строку\ ASCII.}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00040}00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}bit\_array\`{}:\ Битовая\ последовательность.}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}decoded\_str\`{}:\ str}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Раскодированная\ строка\ ASCII.}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00050}00050\ \ \ \ \ bit\_array\ =\ np.array(bit\_array)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00051}00051\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00053}00053\ \ \ \ \ \textcolor{comment}{\#\ Разбиваем\ биты\ на\ байты\ (по\ 8\ бит\ в\ каждом)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00054}00054\ \ \ \ \ bytes\_list\ =\ [bit\_array[i:i\ +\ 8]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(bit\_array),\ 8)]}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00056}00056\ \ \ \ \ \textcolor{comment}{\#\ Преобразуем\ каждый\ байт\ в\ десятичное\ число\ и\ затем\ в\ символ\ ASCII}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00057}00057\ \ \ \ \ decoded\_str\ =\ \textcolor{stringliteral}{''}.join([chr(int(\textcolor{stringliteral}{''}.join(map(str,\ byte)),\ 2))\ \textcolor{keywordflow}{for}\ byte\ \textcolor{keywordflow}{in}\ bytes\_list])}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ decoded\_str}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00061}\mbox{\hyperlink{namespacemylib_1_1base_a308146e2b8ce27b8f7ecc17867343c14}{00061}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_a308146e2b8ce27b8f7ecc17867343c14}{merge\_arr}}(x,y):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00062}00062\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Обьединяет\ 2\ массива}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00063}00063\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x\`{},\ \`{}y\`{}:\ Первый\ и\ второй\ массив}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00067}00067\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x+y\`{}:\ NParray}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Массив\ из\ соединённых\ массивов\ x\ y}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00073}00073\ \ \ \ \ x\ =\ list(x)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00074}00074\ \ \ \ \ y\ =\ list(y)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00075}00075\ \ \ \ \ c\ =\ np.array(x+y)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ c}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00078}\mbox{\hyperlink{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc}{00078}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc}{corr\_no\_shift}}(x,\ y,\ norm=True):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00079}00079\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ Вычисляет\ взаимную\ корреляцию\ двух\ одномерных\ массивов(без\ смещения)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ x,\ y:\ одномерные\ массивы}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ norm:\ есть\ нормирование\ или\ нет}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Корреляция}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00092}00092\ \ \ \ \ x\ =\ np.asarray(x)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00093}00093\ \ \ \ \ y\ =\ np.asarray(y)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{if}\ norm:}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ c\ =\ np.dot(x,\ y)\ /\ (np.linalg.norm(x)\ *\ np.linalg.norm(y))}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ c\ =\ np.dot(x,\ y)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00102}\mbox{\hyperlink{namespacemylib_1_1base_afce41dbe3ebdbb8bdd75aa7f082adcd0}{00102}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_afce41dbe3ebdbb8bdd75aa7f082adcd0}{corr\_array}}(x,\ y):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00103}00103\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Корреляция\ двух\ массивов\ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ len(x)\ >\ len(y)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00106}00106\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00109}00109\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x\`{},\ \`{}y\`{}:\ Первый\ и\ второй\ массив}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00110}00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x+y\`{}:\ NParray}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Массив\ корреляции}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00116}00116\ \ \ \ \ arr\ =\ []}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(x)-\/len(y)+1):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ xx\ =\ x[i:(i+len(y))]}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ arr.append(\mbox{\hyperlink{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc}{corr\_no\_shift}}(xx,\ y))}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00120}00120\ \ \ \ \ arr\ =\ np.array(arr)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{return}\ arr}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00123}\mbox{\hyperlink{namespacemylib_1_1base_a3d1917f5b3768e81345456c51ad57877}{00123}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_a3d1917f5b3768e81345456c51ad57877}{auto\_corr}}(x,\ y):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00124}00124\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ Автокорреляция\ двух\ массивов\ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ len(x)\ >\ len(y)}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00128}00128\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x\`{},\ \`{}y\`{}:\ Первый\ и\ второй\ массив}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00132}00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}x+y\`{}:\ NParray}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Массив\ автокорреляции}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00138}00138\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00139}00139\ \ \ \ \ arr\ =\ []}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{if}\ len(x)\ <=\ len(y):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Длинна\ X\ меньше\ длинны\ Y'})}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00143}00143\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(x)-\/len(y)+1):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ xx\ =\ x[i:(i+len(y))]}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ corr\ =\ np.dot(xx,\ y)\ /\ (np.linalg.norm(xx)\ *\ np.linalg.norm(y))}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ arr.append(corr)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00148}00148\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00149}00149\ \ \ \ \ arr\ =\ np.array(arr)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00150}00150\ \ \ \ \ \textcolor{keywordflow}{return}\ arr}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00152}\mbox{\hyperlink{namespacemylib_1_1base_a047cc998b40e63a59fbc4718ce2176e9}{00152}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1base_a047cc998b40e63a59fbc4718ce2176e9}{gen\_rand\_bits}}(n:\ int):}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00153}00153\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ \ \ Генерирует\ случайную\ битовую\ последовательность}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00155}00155\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00158}00158\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}n\`{}:\ длинна\ битовой\ последовательности}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00159}00159\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00160}00160\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00162}00162\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}bit\_array\`{}:\ NParray}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00163}00163\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ Массив\ случайных\ битов}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00165}00165\ \ \ \ \ bit\_array\ =\ np.random.randint(0,\ 2,\ n)}
+\DoxyCodeLine{\Hypertarget{base_8py_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{return}\ bit\_array}
+
+\end{DoxyCode}

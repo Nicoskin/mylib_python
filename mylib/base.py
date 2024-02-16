@@ -2,6 +2,7 @@
 `BASE`
 - str_to_bits
 - bits_to_str
+- gen_rand_bits
 - merge_arr
 - corr_no_shift
 - corr_array
@@ -147,3 +148,19 @@ def auto_corr(x, y):
     
     arr = np.array(arr)
     return arr
+
+def gen_rand_bits(n: int):
+    """
+    Генерирует случайную битовую последовательность
+
+    Параметры
+    ----------
+        `n`: длинна битовой последовательности
+
+    Возвращает
+    --------
+        `bit_array`: NParray
+            Массив случайных битов
+    """
+    bit_array = np.random.randint(0, 2, n)
+    return bit_array

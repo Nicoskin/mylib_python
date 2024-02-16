@@ -1,0 +1,122 @@
+\doxysection{sdr.\+py}
+\hypertarget{sdr_8py_source}{}\label{sdr_8py_source}\index{D:/Documents/0\_\_University/Python/mylib\_python/mylib/sdr.py@{D:/Documents/0\_\_University/Python/mylib\_python/mylib/sdr.py}}
+\mbox{\hyperlink{sdr_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00001}\mbox{\hyperlink{namespacemylib_1_1sdr}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00002}00002\ \textcolor{stringliteral}{\`{}SDR\`{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00003}00003\ \textcolor{stringliteral}{-\/\ sdr\_settings}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00004}00004\ \textcolor{stringliteral}{-\/\ tx\_sig}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00005}00005\ \textcolor{stringliteral}{-\/\ rx\_cycles\_buffer}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00007}00007\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00009}\mbox{\hyperlink{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}{00009}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1sdr_a46c97eef1fa1f54b8a9c8c1a0d09427f}{sdr\_settings}}(ip\ =\ "{}ip:192.168.3.1\textcolor{stringliteral}{"{},}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00010}00010\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ frequency\ =\ 2e9,}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00011}00011\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer\_size\ =\ 1e3,}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00012}00012\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sample\_rate\ =\ 1e6,}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00013}00013\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tx\_gain\ =\ 0,\ rx\_gain\ =\ 0,}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00014}00014\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mode\ =\ 'manual'}):}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00015}00015\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00016}00016\ \textcolor{stringliteral}{\ \ \ \ Базовые\ настройки\ sdr}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00018}00018\ \textcolor{stringliteral}{\ \ \ \ sdr\ =\ sdr\_settings("{}ip:192.168.3.1"{})}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ \ \ sdr\ =\ sdr\_settings("{}ip:192.168.3.1"{},\ 2300e6+(2e6*2),\ 1000,\ 1e6,0,30)\ \#\ type:\ ignore}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}ip\`{}\ :\ "{}ip:192.168.3.1"{}\ /\ "{}ip:192.168.2.1"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00025}00025\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}frequency\`{}\ :\ частота\ дискретизации}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00026}00026\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ от\ 325\ [МГц]\ до\ 3.8\ [ГГц]\ |\ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ hacked\ 70\ [МГц]\ до\ 6\ [ГГц]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}buffer\_size\`{}\ =\ 1e3\ [samples]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}sample\_rate\`{}\ =\ 1e6\ [samples]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}tx\_gain\`{}:\ сила\ передачи\ [dBm]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ рекомендуемое\ значение\ от\ -\/90\ до\ 0\ [дБ]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}rx\_gain\`{}:\ чувствительность\ приёма\ [dBm]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ рекомендуемое\ значение\ от\ 0\ до\ 74,5\ [дБ]}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}mode\`{}\ :\ str,\ optional}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ slow\_attack,\ fast\_attack,\ manual}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}sdr\`{}:\ настроенный\ класс\ "{}sdr"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{import}\ adi}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00047}00047\ \ \ \ \ sdr\ =\ adi.Pluto(ip)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00049}00049\ \ \ \ \ sdr.rx\_lo\ =\ int(frequency)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00050}00050\ \ \ \ \ sdr.tx\_lo\ =\ int(frequency)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00052}00052\ \ \ \ \ sdr.tx\_destroy\_buffer()}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00053}00053\ \ \ \ \ sdr.rx\_destroy\_buffer()}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00055}00055\ \ \ \ \ sdr.rx\_buffer\_size\ =\ int(buffer\_size)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00056}00056\ \ \ \ \ sdr.sample\_rate\ =\ int(sample\_rate)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00057}00057\ \ \ \ \ sdr.gain\_control\_mode\_chan0\ =\ mode}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00058}00058\ \ \ \ \ sdr.tx\_hardwaregain\_chan0\ =\ tx\_gain\ \textcolor{comment}{\#\ допустимый\ диапазон\ составляет\ от\ -\/90\ до\ 0\ дБ}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00059}00059\ \ \ \ \ sdr.rx\_hardwaregain\_chan0\ =\ rx\_gain\ \textcolor{comment}{\#\ допустимый\ диапазон\ составляет\ от\ 0\ до\ 74,5\ дБ}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{return}\ sdr}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00063}\mbox{\hyperlink{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5}{00063}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1sdr_a3bd4468aa937ff83857fddae491005b5}{tx\_sig}}(sdr,\ samples,\ tx\_cycle:\ bool\ =\ \textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ Функция\ передает\ samples\ на\ TX}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ !!!\ Нужна\ настроенная\ sdr\ !!!}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}sdr\`{}\ :\ переменная\ sdr}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}samples\`{}\ :\ значения\ сэмплов\ которые\ нужно\ передать}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}tx\_cycle\`{}:\ по\ стандарту\ передает\ в\ цикле}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ Не\ забывай\ сбрасывать\ буфер\ в\ конце\ проги\ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}\ sdr.tx\_destroy\_buffer()\ "{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ \string^\string^\string^\string^}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ sdr.tx\_cyclic\_buffer\ =\ tx\_cycle}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ sdr.tx(samples)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{except}\ NameError:}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}(ERROR\ MyLib):\ Переменная\ 'sdr'\ не\ определена."{}})}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00088}\mbox{\hyperlink{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a}{00088}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1sdr_a4640a2dd507be27d58fe77f114d7e69a}{rx\_cycles\_buffer}}(sdr,\ num\_cycles:\ int\ =\ 1):}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00089}00089\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ Циклически\ получает\ сигнал\ с\ RX\ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ !!!\ Нужна\ настроенная\ sdr\ !!!}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ Параметры}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00095}00095\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00096}00096\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}sdr\`{}\ :\ переменная\ sdr}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}num\_cycles\`{}:\ сколько\ раз\ получает\ буфер\ rx}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ \ \ Возвращает}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}rx\`{}:\ выводит\ [num\_cycles]\ циклов\ RX}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00105}00105\ \ \ \ \ \textcolor{keyword}{from}\ numpy\ \textcolor{keyword}{import}\ array\ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00106}00106\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00107}00107\ \ \ \ \ rx\ =\ []}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ cycle\ \textcolor{keywordflow}{in}\ range(num\_cycles):\ \ \textcolor{comment}{\#\ Считывает\ num\_cycles\ циклов\ Rx}}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ new\_data\ =\ sdr.rx()}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ rx.extend(new\_data)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ array(rx)}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{except}\ NameError:}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}(ERROR\ MyLib):\ Переменная\ 'sdr'\ не\ определена."{}})}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{\Hypertarget{sdr_8py_source_l00116}00116\ }
+
+\end{DoxyCode}

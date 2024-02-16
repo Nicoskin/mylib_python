@@ -25,6 +25,7 @@ import mylib.test as mltest
 ```
 str_to_bits
 bits_to_str
+gen_rand_bits
 merge_arr
 corr_no_shift
 corr_array
@@ -55,6 +56,7 @@ dem_qpsk
 cool_scatter
 cool_plot
 angle_scatter
+eye_pattern
 ```
 
 ### mylib.test

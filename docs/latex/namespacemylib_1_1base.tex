@@ -1,0 +1,185 @@
+\doxysection{mylib.\+base Namespace Reference}
+\hypertarget{namespacemylib_1_1base}{}\label{namespacemylib_1_1base}\index{mylib.base@{mylib.base}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399}{str\+\_\+to\+\_\+bits}} (str str)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_af8b789778fcc7d9826e99e6c33425e8d}{bits\+\_\+to\+\_\+str}} (bit\+\_\+array)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_a308146e2b8ce27b8f7ecc17867343c14}{merge\+\_\+arr}} (x, y)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc}{corr\+\_\+no\+\_\+shift}} (x, y, norm=True)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_afce41dbe3ebdbb8bdd75aa7f082adcd0}{corr\+\_\+array}} (x, y)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_a3d1917f5b3768e81345456c51ad57877}{auto\+\_\+corr}} (x, y)
+\item 
+\mbox{\hyperlink{namespacemylib_1_1base_a047cc998b40e63a59fbc4718ce2176e9}{gen\+\_\+rand\+\_\+bits}} (int n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}`BASE`
+- str_to_bits
+- bits_to_str
+- gen_rand_bits
+- merge_arr
+- corr_no_shift
+- corr_array
+- auto_corr\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemylib_1_1base_a3d1917f5b3768e81345456c51ad57877}\label{namespacemylib_1_1base_a3d1917f5b3768e81345456c51ad57877} 
+\index{mylib.base@{mylib.base}!auto\_corr@{auto\_corr}}
+\index{auto\_corr@{auto\_corr}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{auto\_corr()}{auto\_corr()}}
+{\footnotesize\ttfamily mylib.\+base.\+auto\+\_\+corr (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Автокорреляция двух массивов 
+
+len(x) > len(y)
+
+Параметры
+----------
+    `x`, `y`: Первый и второй массив
+
+Возвращает
+--------
+    `x+y`: NParray
+        Массив автокорреляции
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00123}{123}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_af8b789778fcc7d9826e99e6c33425e8d}\label{namespacemylib_1_1base_af8b789778fcc7d9826e99e6c33425e8d} 
+\index{mylib.base@{mylib.base}!bits\_to\_str@{bits\_to\_str}}
+\index{bits\_to\_str@{bits\_to\_str}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{bits\_to\_str()}{bits\_to\_str()}}
+{\footnotesize\ttfamily mylib.\+base.\+bits\+\_\+to\+\_\+str (\begin{DoxyParamCaption}\item[{}]{bit\+\_\+array }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Преобразует битовую последовательность в строку ASCII.
+
+Параметры
+----------
+    `bit_array`: Битовая последовательность.
+    
+Возвращает
+--------
+    `decoded_str`: str
+        Раскодированная строка ASCII.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00037}{37}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_afce41dbe3ebdbb8bdd75aa7f082adcd0}\label{namespacemylib_1_1base_afce41dbe3ebdbb8bdd75aa7f082adcd0} 
+\index{mylib.base@{mylib.base}!corr\_array@{corr\_array}}
+\index{corr\_array@{corr\_array}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{corr\_array()}{corr\_array()}}
+{\footnotesize\ttfamily mylib.\+base.\+corr\+\_\+array (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Корреляция двух массивов 
+
+len(x) > len(y)
+
+Параметры
+----------
+    `x`, `y`: Первый и второй массив
+
+Возвращает
+--------
+    `x+y`: NParray
+        Массив корреляции
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00102}{102}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc}\label{namespacemylib_1_1base_a88ce68487164a69a75bdad6207bbe5dc} 
+\index{mylib.base@{mylib.base}!corr\_no\_shift@{corr\_no\_shift}}
+\index{corr\_no\_shift@{corr\_no\_shift}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{corr\_no\_shift()}{corr\_no\_shift()}}
+{\footnotesize\ttfamily mylib.\+base.\+corr\+\_\+no\+\_\+shift (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{norm = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Вычисляет взаимную корреляцию двух одномерных массивов(без смещения)
+
+Параметры
+------------
+    x, y: одномерные массивы
+    
+    norm: есть нормирование или нет
+    
+Возвращает
+----------  
+    Корреляция
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00078}{78}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_a047cc998b40e63a59fbc4718ce2176e9}\label{namespacemylib_1_1base_a047cc998b40e63a59fbc4718ce2176e9} 
+\index{mylib.base@{mylib.base}!gen\_rand\_bits@{gen\_rand\_bits}}
+\index{gen\_rand\_bits@{gen\_rand\_bits}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{gen\_rand\_bits()}{gen\_rand\_bits()}}
+{\footnotesize\ttfamily mylib.\+base.\+gen\+\_\+rand\+\_\+bits (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Генерирует случайную битовую последовательность
+
+Параметры
+----------
+    `n`: длинна битовой последовательности
+
+Возвращает
+--------
+    `bit_array`: NParray
+        Массив случайных битов
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00152}{152}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_a308146e2b8ce27b8f7ecc17867343c14}\label{namespacemylib_1_1base_a308146e2b8ce27b8f7ecc17867343c14} 
+\index{mylib.base@{mylib.base}!merge\_arr@{merge\_arr}}
+\index{merge\_arr@{merge\_arr}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{merge\_arr()}{merge\_arr()}}
+{\footnotesize\ttfamily mylib.\+base.\+merge\+\_\+arr (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Обьединяет 2 массива
+
+Параметры
+----------
+    `x`, `y`: Первый и второй массив
+
+Возвращает
+--------
+    `x+y`: NParray
+        Массив из соединённых массивов x y
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00061}{61}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
+\Hypertarget{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399}\label{namespacemylib_1_1base_ac0aeacdd18011f75bdea4652b83c7399} 
+\index{mylib.base@{mylib.base}!str\_to\_bits@{str\_to\_bits}}
+\index{str\_to\_bits@{str\_to\_bits}!mylib.base@{mylib.base}}
+\doxysubsubsection{\texorpdfstring{str\_to\_bits()}{str\_to\_bits()}}
+{\footnotesize\ttfamily mylib.\+base.\+str\+\_\+to\+\_\+bits (\begin{DoxyParamCaption}\item[{str}]{str }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Преобразовает строку в битовую последовательност(ascii)
+
+Параметры
+-------------
+    `str` : строка которая кодируется
+
+Возвращает
+----------
+    `bit_array` : numpy array
+        Закодированный массив ASCII (битовая последовательность)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{base_8py_source_l00015}{15}} of file \mbox{\hyperlink{base_8py_source}{base.\+py}}.
+
