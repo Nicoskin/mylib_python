@@ -7,7 +7,7 @@
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00003}00003\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Literal}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00004}00004\ \textcolor{keyword}{from}\ pylab\ \textcolor{keyword}{import}\ gcf}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00005}00005\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00006}00006\ \textcolor{keyword}{from}\ .plots\_dev\ \textcolor{keyword}{import}\ \_cool\_scatter\_dev}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00006}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_af3bd921139acdc5342ea087d504c30d4}{00006}}\ call\_count\_scat,\ call\_count\_plot,\ call\_count\_scat\_dev\_,\ call\_count\_eye\ =\ 0,\ 0,\ 0,\ 0}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00007}00007\ }
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00008}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a71453b1546dc4bf6a5ee6c0bc2f7ccbb}{00008}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a71453b1546dc4bf6a5ee6c0bc2f7ccbb}{cool\_scatter}}(x,\ y=None,\ show\_plot=True,\ name="{}cool\_scatter"{}):}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00009}00009\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
@@ -19,207 +19,278 @@
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00015}00015\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}show\_plot\`{}:\ (логическое\ значение,\ необязательный):\ Определяет,\ нужно\ ли\ отображать\ диаграмму.\ По\ умолчанию\ True.}}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00016}00016\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \`{}name\`{}:(строка,\ необязательный):\ Название\ окна\ диаграммы.\ По\ умолчанию\ "{}cool\_scatter"{}.}}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00018}00018\ \ \ \ \ fig,\ ax\ =\ plt.subplots(figsize=(7,\ 7),\ num=3454)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00019}00019\ \ \ \ \ fig\ =\ gcf()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00020}00020\ \ \ \ \ fig.canvas.manager.set\_window\_title(name)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00021}00021\ \ \ \ \ fig.subplots\_adjust(left=0.07,\ bottom=0.05,\ top=0.94,\ right=0.94)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00022}00022\ \ \ \ \ ax.grid(linewidth=0.5)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00023}00023\ \ \ \ \ ax.tick\_params(}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ axis=\textcolor{stringliteral}{"{}both"{}},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ direction=\textcolor{stringliteral}{"{}in"{}},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ right=\textcolor{keyword}{True},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ top=\textcolor{keyword}{True},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ labelright=\textcolor{keyword}{True},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ labeltop=\textcolor{keyword}{True},}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00030}00030\ \ \ \ \ )}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00031}00031\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ x\ =\ x.real}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00036}00036\ \ \ \ \ colors\ =\ range(len(x))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00037}00037\ \ \ \ \ ax.scatter(x,\ y,\ s=10,\ c=colors,\ cmap=\textcolor{stringliteral}{"{}hsv"{}},\ alpha=0.9)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00038}00038\ \ \ \ \ ax.axhline(y=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00039}00039\ \ \ \ \ ax.axvline(x=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00040}00040\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00041}00041\ \ \ \ \ maxi\ =\ np.max((abs(x)\ **\ 2\ +\ abs(y)\ **\ 2)\ **\ 0.5)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00042}00042\ \ \ \ \ maxi\ *=\ 1.05}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00043}00043\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00044}00044\ \ \ \ \ ax.axis([-\/maxi,\ maxi,\ -\/maxi,\ maxi])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00045}00045\ \ \ \ \ ax.set\_box\_aspect(1)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ plt.show()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00050}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}{00050}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}{cool\_plot}}(x,\ y=None,\ gap:\ Literal[\textcolor{stringliteral}{"{}none"{}},\ \textcolor{stringliteral}{"{}snake"{}},\ \textcolor{stringliteral}{"{}jump"{}}]\ =\ \textcolor{stringliteral}{"{}none"{}},\ show\_plot=\textcolor{keyword}{True}):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00051}00051\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ Создает\ красивый\ график\ на\ основе\ входных\ данных.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00053}00053\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список\ значений\ для\ оси\ x.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список\ значений\ для\ оси\ y.\ Если\ не\ указан,\ будет\ использовано\ мнимая\ часть\ x.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ -\/\ gap:\ тип\ разрыва\ на\ графике.\ Может\ быть\ "{}none"{}\ (без\ разрыва),\ "{}snake"{}\ (змеевидный\ разрыв)\ или\ "{}jump"{}\ (скачок\ разрыв).}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ флаг,\ указывающий,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00059}00059\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ Возвращает:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ Ничего.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00062}00062\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ Пример\ использования:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ cool\_plot([1,\ 2,\ 3,\ 4],\ [5,\ 6,\ 7,\ 8],\ gap="{}snake"{},\ show\_plot=True)}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ x\ =\ x.real}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00072}00072\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00073}00073\ \ \ \ \ fig,\ (ax1,\ ax2)\ =\ plt.subplots(2,\ sharex=\textcolor{keyword}{True},\ figsize=(9,\ 7),\ num=87954)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00074}00074\ \ \ \ \ fig\ =\ gcf()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00075}00075\ \ \ \ \ fig.canvas.manager.set\_window\_title(\textcolor{stringliteral}{"{}cool\_plot"{}})}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00076}00076\ \ \ \ \ fig.subplots\_adjust(left=0.05,\ bottom=0.05,\ right=0.95,\ top=0.95,\ hspace=0.1)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00077}00077\ \ \ \ \ ax1.plot(x)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00078}00078\ \ \ \ \ ax1.plot(y)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00079}00079\ \ \ \ \ ax1.grid(linewidth=0.5)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00080}00080\ \ \ \ \ rx\ =\ np.array(x)\ +\ 1j\ *\ np.array(y)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00081}00081\ \ \ \ \ ax1.axis([-\/10,\ len(rx)\ +\ 10,\ -\/max(abs(rx))\ *\ 1.05,\ max(abs(rx))\ *\ 1.05])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00082}00082\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00083}00083\ \ \ \ \ ax2.grid(linewidth=0.5)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00084}00084\ \ \ \ \ an\ =\ []}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(rx)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ an.append(np.angle(rx[i]))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00087}00087\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{if}\ gap\ ==\ \textcolor{stringliteral}{"{}snake"{}}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >\ 0:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{elif}\ gap\ ==\ \textcolor{stringliteral}{"{}jump"{}}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ <\ 0:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ an[i]\ >\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ -\/=\ np.pi\ /\ 2}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00104}00104\ \ \ \ \ an\ =\ np.array(an)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00105}00105\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00106}00106\ \ \ \ \ ax2.plot(an)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00107}00107\ \ \ \ \ ax2.set\_xlim(-\/10,\ len(an)\ +\ 10)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00108}00108\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ plt.show()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00111}00111\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00112}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}{00112}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}{angle\_scatter}}(x,\ y=None,\ gap:\ Literal[\textcolor{stringliteral}{"{}none"{}},\ \textcolor{stringliteral}{"{}snake"{}},\ \textcolor{stringliteral}{"{}jump"{}}]\ =\ \textcolor{stringliteral}{"{}none"{}},\ show\_plot=\textcolor{keyword}{True},\ print\_stats=\textcolor{keyword}{False}):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00113}00113\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ Создает\ scatter\ plot\ для\ угловых\ координат.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ }}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список,\ содержащий\ значения\ для\ оси\ x.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список,\ содержащий\ значения\ для\ оси\ y.\ Если\ не\ указан,\ то\ используется\ мнимая\ часть\ x,\ а\ вещественная\ часть\ x\ становится\ осью\ x.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ -\/\ gap:\ строка,\ определяющая\ тип\ разрыва\ между\ значениями\ углов.\ Возможные\ значения:\ "{}none"{}\ (без\ разрыва),\ "{}snake"{}\ (змеевидный\ разрыв),\ "{}jump"{}\ (скачкообразный\ разрыв).\ По\ умолчанию\ "{}none"{}.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ булево\ значение,\ указывающее,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ -\/\ print\_stats:\ булево\ значение,\ указывающее,\ нужно\ ли\ выводить\ статистику.\ По\ умолчанию\ False.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ }}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ \ \ Возвращает:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ -\/\ None}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ }}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ Пример\ использования:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ >>>\ angle\_scatter([1,\ 2,\ 3,\ 4,\ 5],\ gap="{}snake"{},\ show\_plot=True,\ print\_stats=True)}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00131}00131\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00132}00132\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ y\ =\ x.imag\ *\ 1j}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ x\ =\ x.real}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00135}00135\ \ \ \ \ an\ =\ []}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(x)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ an.append(np.angle(x[i]\ +\ y[i]))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00138}00138\ \ \ \ \ an\ =\ np.array(an)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00139}00139\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{if}\ gap\ ==\ \textcolor{stringliteral}{"{}snake"{}}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >\ 0:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{elif}\ gap\ ==\ \textcolor{stringliteral}{"{}jump"{}}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ <\ 0:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ an[i]\ >\ np.pi\ /\ 2:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ -\/=\ np.pi\ /\ 2}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{global}\ call\_count\_scat}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00019}00019\ \ \ \ \ call\_count\_scat\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{if}\ call\_count\_scat\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ num\_\ =\ 3454\ +\ call\_count\_scat}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ name\ =\ name\ +\ f\textcolor{stringliteral}{'\{call\_count\_scat\}'}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ num\_\ =\ 3454}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00026}00026\ \ \ \ \ fig,\ ax\ =\ plt.subplots(figsize=(7,\ 7),\ num=num\_)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00027}00027\ \ \ \ \ fig\ =\ gcf()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00028}00028\ \ \ \ \ fig.canvas.manager.set\_window\_title(name)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00029}00029\ \ \ \ \ fig.subplots\_adjust(left=0.07,\ bottom=0.05,\ top=0.94,\ right=0.94)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00030}00030\ \ \ \ \ ax.grid(linewidth=0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00031}00031\ \ \ \ \ ax.tick\_params(}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ axis=\textcolor{stringliteral}{"{}both"{}},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ direction=\textcolor{stringliteral}{"{}in"{}},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ right=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ top=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ labelright=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ labeltop=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00038}00038\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ x\ =\ x.real}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00044}00044\ \ \ \ \ colors\ =\ range(len(x))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00045}00045\ \ \ \ \ ax.scatter(x,\ y,\ s=10,\ c=colors,\ cmap=\textcolor{stringliteral}{"{}hsv"{}},\ alpha=0.9)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00046}00046\ \ \ \ \ ax.axhline(y=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00047}00047\ \ \ \ \ ax.axvline(x=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00049}00049\ \ \ \ \ maxi\ =\ np.max((abs(x)\ **\ 2\ +\ abs(y)\ **\ 2)\ **\ 0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00050}00050\ \ \ \ \ maxi\ *=\ 1.05}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00051}00051\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00052}00052\ \ \ \ \ ax.axis([-\/maxi,\ maxi,\ -\/maxi,\ maxi])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00053}00053\ \ \ \ \ ax.set\_box\_aspect(1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ plt.show()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00058}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}{00058}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aef0e8cd66de797a2190427f0c958aa11}{cool\_plot}}(x,\ y=None,\ gap:\ Literal[\textcolor{stringliteral}{"{}none"{}},\ \textcolor{stringliteral}{"{}snake"{}},\ \textcolor{stringliteral}{"{}jump"{}}]\ =\ \textcolor{stringliteral}{"{}none"{}},\ show\_plot=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00059}00059\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ Создает\ красивый\ график\ на\ основе\ входных\ данных.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00061}00061\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список\ значений\ для\ оси\ x.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список\ значений\ для\ оси\ y.\ Если\ не\ указан,\ будет\ использовано\ мнимая\ часть\ x.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ -\/\ gap:\ тип\ разрыва\ на\ графике.\ Может\ быть\ "{}none"{}\ (без\ разрыва),\ "{}snake"{}\ (змеевидный\ разрыв)\ или\ "{}jump"{}\ (скачок\ разрыв).}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ флаг,\ указывающий,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00067}00067\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ Возвращает:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ Ничего.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00070}00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ Пример\ использования:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ cool\_plot([1,\ 2,\ 3,\ 4],\ [5,\ 6,\ 7,\ 8],\ gap="{}snake"{},\ show\_plot=True)}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00074}00074\ \ \ \ \ \textcolor{keyword}{global}\ call\_count\_plot}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00075}00075\ \ \ \ \ call\_count\_plot\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{if}\ call\_count\_plot\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ num\_\ =\ 87954\ +\ call\_count\_plot}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ name\ =\ name\ +\ f\textcolor{stringliteral}{'\{call\_count\_plot\}'}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ num\_\ =\ 87954}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ x\ =\ x.real}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00089}00089\ \ \ \ \ fig,\ (ax1,\ ax2)\ =\ plt.subplots(2,\ sharex=\textcolor{keyword}{True},\ figsize=(9,\ 7),\ num=num\_)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00090}00090\ \ \ \ \ fig\ =\ gcf()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00091}00091\ \ \ \ \ fig.canvas.manager.set\_window\_title(name)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00092}00092\ \ \ \ \ fig.subplots\_adjust(left=0.05,\ bottom=0.05,\ right=0.95,\ top=0.95,\ hspace=0.1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00093}00093\ \ \ \ \ ax1.plot(x)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00094}00094\ \ \ \ \ ax1.plot(y)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00095}00095\ \ \ \ \ ax1.grid(linewidth=0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00096}00096\ \ \ \ \ rx\ =\ np.array(x)\ +\ 1j\ *\ np.array(y)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00097}00097\ \ \ \ \ ax1.axis([-\/10,\ len(rx)\ +\ 10,\ -\/max(abs(rx))\ *\ 1.05,\ max(abs(rx))\ *\ 1.05])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00099}00099\ \ \ \ \ ax2.grid(linewidth=0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00100}00100\ \ \ \ \ an\ =\ []}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(rx)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ an.append(np.angle(rx[i]))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{if}\ gap\ ==\ \textcolor{stringliteral}{"{}snake"{}}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{elif}\ gap\ ==\ \textcolor{stringliteral}{"{}jump"{}}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ <\ 0:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ an[i]\ >\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ -\/=\ np.pi\ /\ 2}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00120}00120\ \ \ \ \ an\ =\ np.array(an)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00122}00122\ \ \ \ \ ax2.plot(an)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00123}00123\ \ \ \ \ ax2.set\_xlim(-\/10,\ len(an)\ +\ 10)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ plt.show()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00128}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}{00128}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_a7286d89fb7ab9c1cb73673401d6393b9}{angle\_scatter}}(x,\ y=None,\ gap:\ Literal[\textcolor{stringliteral}{"{}none"{}},\ \textcolor{stringliteral}{"{}snake"{}},\ \textcolor{stringliteral}{"{}jump"{}}]\ =\ \textcolor{stringliteral}{"{}none"{}},\ show\_plot=\textcolor{keyword}{True},\ print\_stats=\textcolor{keyword}{False}):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00129}00129\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ Создает\ scatter\ plot\ для\ угловых\ координат.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список,\ содержащий\ значения\ для\ оси\ x.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список,\ содержащий\ значения\ для\ оси\ y.\ Если\ не\ указан,\ то\ используется\ мнимая\ часть\ x,\ а\ вещественная\ часть\ x\ становится\ осью\ x.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ -\/\ gap:\ строка,\ определяющая\ тип\ разрыва\ между\ значениями\ углов.\ Возможные\ значения:\ "{}none"{}\ (без\ разрыва),\ "{}snake"{}\ (змеевидный\ разрыв),\ "{}jump"{}\ (скачкообразный\ разрыв).\ По\ умолчанию\ "{}none"{}.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ булево\ значение,\ указывающее,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ -\/\ print\_stats:\ булево\ значение,\ указывающее,\ нужно\ ли\ выводить\ статистику.\ По\ умолчанию\ False.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00139}00139\ \textcolor{stringliteral}{\ \ \ \ Возвращает:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00140}00140\ \textcolor{stringliteral}{\ \ \ \ -\/\ None}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00142}00142\ \textcolor{stringliteral}{\ \ \ \ Пример\ использования:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ \ \ >>>\ angle\_scatter([1,\ 2,\ 3,\ 4,\ 5],\ gap="{}snake"{},\ show\_plot=True,\ print\_stats=True)}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00147}00147\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ y\ =\ x.imag\ *\ 1j}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ x\ =\ x.real}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00151}00151\ \ \ \ \ an\ =\ []}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(x)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ an.append(np.angle(x[i]\ +\ y[i]))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00154}00154\ \ \ \ \ an\ =\ np.array(an)}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00155}00155\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{if}\ print\_stats\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ an\_last\ =\ an[0]}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ aaa\ =\ []}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((abs(an\_last\ -\/\ an[i])\ <\ np.pi\ /\ 4)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ ((an\_last\ <\ (-\/np.pi\ *\ 9\ /\ 10))\ \textcolor{keywordflow}{and}\ (an[i]\ ==\ np.pi))\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ ((an\_last\ >\ (np.pi\ *\ 9\ /\ 10))\ \textcolor{keywordflow}{and}\ (an[i]\ ==\ np.pi))):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an\_last\ =\ an[i]}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k\ =\ i}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aaa.append(an[i])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'За\ '},an[0],\ an\_last,\ an[0]\ -\/\ an\_last,\ k)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'1\ '},an[0])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00169}00169\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00170}00170\ \ \ \ \ r\ =\ np.linspace(0.0,\ 0.8,\ len(an))}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00171}00171\ \ \ \ \ x\ =\ r\ *\ np.cos(an)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00172}00172\ \ \ \ \ y\ =\ r\ *\ np.sin(an)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00173}00173\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00174}00174\ \ \ \ \ \_cool\_scatter\_dev(x,\ y,\ show\_plot=\textcolor{keyword}{False},\ name=\textcolor{stringliteral}{"{}angle\_scatter"{}})}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00175}00175\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ plt.show()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00178}00178\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00179}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}{00179}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}{eye\_pattern}}(x,\ y=None,\ symbol\_len\ =\ 10,\ show\_plot=True):}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00180}00180\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ \ \ Функция\ eye\_pattern\ отображает\ глазковую\ диаграмму\ для\ заданного\ сигнала.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ \ \ }}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список,\ представляющий\ вещественную\ часть\ сигнала\ или\ комплексный\ сигнал.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00185}00185\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список,\ представляющий\ мнимую\ часть\ сигнала.\ Если\ не\ указан,\ будет\ использована\ мнимая\ часть\ x.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00186}00186\ \textcolor{stringliteral}{\ \ \ \ -\/\ symbol\_len:\ длина\ символа,\ используемая\ для\ разделения\ сигнала\ на\ символы.\ По\ умолчанию\ равна\ 10.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00187}00187\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ флаг,\ указывающий,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00188}00188\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{if}\ gap\ ==\ \textcolor{stringliteral}{"{}snake"{}}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ >=\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ =\ np.pi\ /\ 2\ -\/\ (an[i]\ -\/\ (np.pi\ /\ 2))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{elif}\ gap\ ==\ \textcolor{stringliteral}{"{}jump"{}}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ an[i]\ <\ 0:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ +=\ np.pi}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ an[i]\ >\ np.pi\ /\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an[i]\ -\/=\ np.pi\ /\ 2}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00171}00171\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{if}\ print\_stats\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ an\_last\ =\ an[0]}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ aaa\ =\ []}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(an)):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((abs(an\_last\ -\/\ an[i])\ <\ np.pi\ /\ 4)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ ((an\_last\ <\ (-\/np.pi\ *\ 9\ /\ 10))\ \textcolor{keywordflow}{and}\ (an[i]\ ==\ np.pi))\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ ((an\_last\ >\ (np.pi\ *\ 9\ /\ 10))\ \textcolor{keywordflow}{and}\ (an[i]\ ==\ np.pi))):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ an\_last\ =\ an[i]}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k\ =\ i}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aaa.append(an[i])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'За\ '},an[0],\ an\_last,\ an[0]\ -\/\ an\_last,\ k)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'1\ '},an[0])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00185}00185\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00186}00186\ \ \ \ \ r\ =\ np.linspace(0.0,\ 0.8,\ len(an))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00187}00187\ \ \ \ \ x\ =\ r\ *\ np.cos(an)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00188}00188\ \ \ \ \ y\ =\ r\ *\ np.sin(an)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00190}00190\ \ \ \ \ \mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa3b2580a5ba9d5f574ae3fdf67417e2e}{\_cool\_scatter\_dev}}(x,\ y,\ show\_plot=\textcolor{keyword}{False},\ name=\textcolor{stringliteral}{"{}angle\_scatter"{}})}
 \DoxyCodeLine{\Hypertarget{plots_8py_source_l00191}00191\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00192}00192\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ x\ =\ x.real}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00195}00195\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00196}00196\ \ \ \ \ ost\ =\ len(x)\ \%\ symbol\_len\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00197}00197\ \ \ \ \ x\ =\ np.array(x[:-\/ost])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00198}00198\ \ \ \ \ y\ =\ np.array(y[:-\/ost])}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00199}00199\ \ \ \ \ arr\ =\ x\ +\ y\ *\ 1j}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00200}00200\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00201}00201\ \ \ \ \ arr\ =\ np.array(arr)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00202}00202\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00203}00203\ \ \ \ \ arr\ =\ arr.reshape(-\/1,\ symbol\_len)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00204}00204\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00205}00205\ \ \ \ \ fig,\ ax\ =\ plt.subplots(figsize=(8,\ 6),\ num=3123454)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00206}00206\ \ \ \ \ fig\ =\ gcf()}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00207}00207\ \ \ \ \ fig.canvas.manager.set\_window\_title(\textcolor{stringliteral}{'eye\_pattern'})}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00208}00208\ \ \ \ \ fig.subplots\_adjust(left=0.07,\ bottom=0.05,\ top=0.94,\ right=0.94)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00209}00209\ \ \ \ \ ax.grid(linewidth=0.5)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00210}00210\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00211}00211\ \ \ \ \ axX\ =\ np.arange(1,symbol\_len+1)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00212}00212\ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ arr:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ ax.plot(axX,\ p,\ \textcolor{stringliteral}{'o-\/'})}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00216}00216\ \ \ \ \ plt.xticks(axX)}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00217}00217\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00218}00218\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot:}
-\DoxyCodeLine{\Hypertarget{plots_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ plt.show()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00192}00192\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ plt.show()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00195}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}{00195}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa232ea6c7f8bb34bd8f33ce784485d18}{eye\_pattern}}(x,\ y=None,\ symbol\_len\ =\ 10,\ show\_plot=True):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00196}00196\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00197}00197\ \textcolor{stringliteral}{\ \ \ \ Функция\ eye\_pattern\ отображает\ глазковую\ диаграмму\ для\ заданного\ сигнала.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00198}00198\ \textcolor{stringliteral}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00199}00199\ \textcolor{stringliteral}{\ \ \ \ Параметры:}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00200}00200\ \textcolor{stringliteral}{\ \ \ \ -\/\ x:\ одномерный\ массив\ или\ список,\ представляющий\ вещественную\ часть\ сигнала\ или\ комплексный\ сигнал.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00201}00201\ \textcolor{stringliteral}{\ \ \ \ -\/\ y:\ одномерный\ массив\ или\ список,\ представляющий\ мнимую\ часть\ сигнала.\ Если\ не\ указан,\ будет\ использована\ мнимая\ часть\ x.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ \ \ -\/\ symbol\_len:\ длина\ символа,\ используемая\ для\ разделения\ сигнала\ на\ символы.\ По\ умолчанию\ равна\ 10.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ \ \ -\/\ show\_plot:\ флаг,\ указывающий,\ нужно\ ли\ отображать\ график.\ По\ умолчанию\ True.}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00204}00204\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{global}\ call\_count\_eye}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00206}00206\ \ \ \ \ call\_count\_eye\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}\ call\_count\_eye\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ num\_\ =\ 12354\ +\ call\_count\_eye}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ name\ =\ name\ +\ f\textcolor{stringliteral}{'\{call\_count\_eye\}'}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ num\_\ =\ 31254}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00212}00212\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(x,\ np.ndarray):\ \ \textcolor{comment}{\#\ Проверка\ на\ numpy}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ x\ =\ np.array(x)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ x\ =\ x.real}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00219}00219\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00220}00220\ \ \ \ \ ost\ =\ len(x)\ \%\ symbol\_len\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00221}00221\ \ \ \ \ x\ =\ np.array(x[:-\/ost])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00222}00222\ \ \ \ \ y\ =\ np.array(y[:-\/ost])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00223}00223\ \ \ \ \ arr\ =\ x\ +\ y\ *\ 1j}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00224}00224\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00225}00225\ \ \ \ \ arr\ =\ np.array(arr)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00227}00227\ \ \ \ \ arr\ =\ arr.reshape(-\/1,\ symbol\_len)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00229}00229\ \ \ \ \ fig,\ ax\ =\ plt.subplots(figsize=(8,\ 6),\ num=num\_)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00230}00230\ \ \ \ \ fig\ =\ gcf()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00231}00231\ \ \ \ \ fig.canvas.manager.set\_window\_title(\textcolor{stringliteral}{'eye\_pattern'})}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00232}00232\ \ \ \ \ fig.subplots\_adjust(left=0.07,\ bottom=0.05,\ top=0.94,\ right=0.94)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00233}00233\ \ \ \ \ ax.grid(linewidth=0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00235}00235\ \ \ \ \ axX\ =\ np.arange(1,symbol\_len+1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00237}00237\ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ arr:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ ax.plot(axX,\ p,\ \textcolor{stringliteral}{'o-\/'})}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00240}00240\ \ \ \ \ plt.xticks(axX)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00241}00241\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ plt.show()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00247}\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa3b2580a5ba9d5f574ae3fdf67417e2e}{00247}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemylib_1_1plots_1_1plots_aa3b2580a5ba9d5f574ae3fdf67417e2e}{\_cool\_scatter\_dev}}(x,\ y=None,\ show\_plot=True,\ name="{}cool\_scatter"{}):}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00248}00248\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00249}00249\ \textcolor{stringliteral}{\ \ \ \ Тот\ же\ cool\_scatter,\ но\ со\ scale\ точек}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00250}00250\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00251}00251\ \ \ \ \ \textcolor{keyword}{global}\ call\_count\_scat\_dev\_}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00252}00252\ \ \ \ \ call\_count\_scat\_dev\_\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00253}00253\ \ \ \ \ \textcolor{keywordflow}{if}\ call\_count\_scat\_dev\_\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ num\_\ =\ 123514\ +\ call\_count\_scat\_dev\_}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ name\ =\ name\ +\ f\textcolor{stringliteral}{'\{call\_count\_scat\_dev\_\}'}}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00256}00256\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ num\_\ =\ 123514}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00259}00259\ \ \ \ \ fig,\ ax\ =\ plt.subplots(figsize=(7,\ 7),\ num=num\_)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00260}00260\ \ \ \ \ fig\ =\ gcf()}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00261}00261\ \ \ \ \ fig.canvas.manager.set\_window\_title(name)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00262}00262\ \ \ \ \ fig.subplots\_adjust(left=0.07,\ bottom=0.05,\ top=0.94,\ right=0.94)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00263}00263\ \ \ \ \ ax.grid(linewidth=0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00264}00264\ \ \ \ \ ax.tick\_params(}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ axis=\textcolor{stringliteral}{"{}both"{}},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ direction=\textcolor{stringliteral}{"{}in"{}},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ right=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ top=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ labelright=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ labeltop=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00271}00271\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}\ y\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ y\ =\ x.imag}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ x\ =\ x.real}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00277}00277\ \ \ \ \ colors\ =\ range(len(x))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00278}00278\ \ \ \ \ scale\ =\ np.linspace(1,\ 30,\ len(x))}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00279}00279\ \ \ \ \ ax.scatter(x,\ y,\ s=scale,\ c=colors,\ cmap=\textcolor{stringliteral}{"{}hsv"{}},\ alpha=0.9)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00280}00280\ \ \ \ \ ax.axhline(y=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00281}00281\ \ \ \ \ ax.axvline(x=0,\ color=\textcolor{stringliteral}{"{}black"{}},\ linestyle=\textcolor{stringliteral}{"{}-\/-\/"{}},\ linewidth=1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00283}00283\ \ \ \ \ maxi\ =\ np.max((abs(x)\ **\ 2\ +\ abs(y)\ **\ 2)\ **\ 0.5)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00284}00284\ \ \ \ \ maxi\ *=\ 1.05}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00285}00285\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00286}00286\ \ \ \ \ ax.axis([-\/maxi,\ maxi,\ -\/maxi,\ maxi])}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00287}00287\ \ \ \ \ ax.set\_box\_aspect(1)}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{if}\ show\_plot\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{plots_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ plt.show()}
 
 \end{DoxyCode}

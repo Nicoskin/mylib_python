@@ -7,8 +7,7 @@ var searchData=
   ['mylib_3a_3amodulation_4',['modulation',['../namespacemylib_1_1modulation.html',1,'mylib']]],
   ['mylib_3a_3aplots_5',['plots',['../namespacemylib_1_1plots.html',1,'mylib']]],
   ['mylib_3a_3aplots_3a_3aplots_6',['plots',['../namespacemylib_1_1plots_1_1plots.html',1,'mylib::plots']]],
-  ['mylib_3a_3aplots_3a_3aplots_5fdev_7',['plots_dev',['../namespacemylib_1_1plots_1_1plots__dev.html',1,'mylib::plots']]],
-  ['mylib_3a_3asdr_8',['sdr',['../namespacemylib_1_1sdr.html',1,'mylib']]],
-  ['mylib_3a_3atest_9',['test',['../namespacemylib_1_1test.html',1,'mylib']]],
-  ['mylib_3a_3atest_3a_3atest_10',['test',['../namespacemylib_1_1test_1_1test.html',1,'mylib::test']]]
+  ['mylib_3a_3asdr_7',['sdr',['../namespacemylib_1_1sdr.html',1,'mylib']]],
+  ['mylib_3a_3atest_8',['test',['../namespacemylib_1_1test.html',1,'mylib']]],
+  ['mylib_3a_3atest_3a_3atest_9',['test',['../namespacemylib_1_1test_1_1test.html',1,'mylib::test']]]
 ];

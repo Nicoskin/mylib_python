@@ -3,7 +3,7 @@ import numpy as np
 from typing import Literal
 from pylab import gcf
 
-from .plots_dev import _cool_scatter_dev
+call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye = 0, 0, 0, 0
 
 def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
     """
@@ -15,7 +15,15 @@ def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
         `show_plot`: (логическое значение, необязательный): Определяет, нужно ли отображать диаграмму. По умолчанию True.
         `name`:(строка, необязательный): Название окна диаграммы. По умолчанию "cool_scatter".
     """
-    fig, ax = plt.subplots(figsize=(7, 7), num=3454)
+    global call_count_scat
+    call_count_scat += 1
+    if call_count_scat >= 2:
+        num_ = 3454 + call_count_scat
+        name = name + f'{call_count_scat}'
+    else:
+        num_ = 3454
+        
+    fig, ax = plt.subplots(figsize=(7, 7), num=num_)
     fig = gcf()
     fig.canvas.manager.set_window_title(name)
     fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
@@ -63,6 +71,14 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
     Пример использования:
     cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
     """
+    global call_count_plot
+    call_count_plot += 1
+    if call_count_plot >= 2:
+        num_ = 87954 + call_count_plot
+        name = name + f'{call_count_plot}'
+    else:
+        num_ = 87954
+        
     if not isinstance(x, np.ndarray):  # Проверка на numpy
         x = np.array(x)
 
@@ -70,9 +86,9 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
         y = x.imag
         x = x.real
 
-    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num=87954)
+    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num=num_)
     fig = gcf()
-    fig.canvas.manager.set_window_title("cool_plot")
+    fig.canvas.manager.set_window_title(name)
     fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, hspace=0.1)
     ax1.plot(x)
     ax1.plot(y)
@@ -186,6 +202,14 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
     - symbol_len: длина символа, используемая для разделения сигнала на символы. По умолчанию равна 10.
     - show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
     """
+    global call_count_eye
+    call_count_eye += 1
+    if call_count_eye >= 2:
+        num_ = 12354 + call_count_eye
+        name = name + f'{call_count_eye}'
+    else:
+        num_ = 31254
+    
     if not isinstance(x, np.ndarray):  # Проверка на numpy
         x = np.array(x)
 
@@ -202,7 +226,7 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
 
     arr = arr.reshape(-1, symbol_len)
 
-    fig, ax = plt.subplots(figsize=(8, 6), num=3123454)
+    fig, ax = plt.subplots(figsize=(8, 6), num=num_)
     fig = gcf()
     fig.canvas.manager.set_window_title('eye_pattern')
     fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
@@ -216,4 +240,51 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
     plt.xticks(axX)
     
     if show_plot:
+        plt.show()
+
+
+
+def _cool_scatter_dev(x, y=None, show_plot=True, name="cool_scatter"):
+    """
+    Тот же cool_scatter, но со scale точек
+    """
+    global call_count_scat_dev_
+    call_count_scat_dev_ += 1
+    if call_count_scat_dev_ >= 2:
+        num_ = 123514 + call_count_scat_dev_
+        name = name + f'{call_count_scat_dev_}'
+    else:
+        num_ = 123514
+        
+    fig, ax = plt.subplots(figsize=(7, 7), num=num_)
+    fig = gcf()
+    fig.canvas.manager.set_window_title(name)
+    fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
+    ax.grid(linewidth=0.5)
+    ax.tick_params(
+        axis="both",
+        direction="in",
+        right=True,
+        top=True,
+        labelright=True,
+        labeltop=True,
+    )
+
+    if y is None:
+        y = x.imag
+        x = x.real
+
+    colors = range(len(x))
+    scale = np.linspace(1, 30, len(x))
+    ax.scatter(x, y, s=scale, c=colors, cmap="hsv", alpha=0.9)
+    ax.axhline(y=0, color="black", linestyle="--", linewidth=1)
+    ax.axvline(x=0, color="black", linestyle="--", linewidth=1)
+
+    maxi = np.max((abs(x) ** 2 + abs(y) ** 2) ** 0.5)
+    maxi *= 1.05
+    
+    ax.axis([-maxi, maxi, -maxi, maxi])
+    ax.set_box_aspect(1)
+
+    if show_plot is True:
         plt.show()
