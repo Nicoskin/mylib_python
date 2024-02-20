@@ -71,6 +71,7 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
     Пример использования:
     cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
     """
+    name = 'cool_plot'
     global call_count_plot
     call_count_plot += 1
     if call_count_plot >= 2:

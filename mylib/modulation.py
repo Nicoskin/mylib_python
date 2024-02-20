@@ -208,10 +208,10 @@ def bpsk_synchro(rx_array, syn):
     Возвращает
     --------
         `rx_array`: numpy array
-            Развернутый сигнал ограниченный синхронизацией вначалеи и в конце
+            Развернутый сигнал ограниченный синхронизацией в начале и в конце
     """
     import mylib as ml
-    cor = ml.autocorr(rx_array.real, syn)
+    cor = ml.auto_corr(rx_array.real, syn)
     
     i_cor = np.argmax(abs(cor), axis=0)
     
