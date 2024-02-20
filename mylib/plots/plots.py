@@ -5,7 +5,7 @@ from pylab import gcf
 
 call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye = 0, 0, 0, 0
 
-def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
+def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title=""):
     """
     Создает точечную диаграмму с красивыми визуализациями.
 
@@ -26,7 +26,8 @@ def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
     fig, ax = plt.subplots(figsize=(7, 7), num=num_)
     fig = gcf()
     fig.canvas.manager.set_window_title(name)
-    fig.subplots_adjust(left=0.07, bottom=0.05, top=0.94, right=0.94)
+    fig.subplots_adjust(left=0.08, bottom=0.06, top=0.93, right=0.93)
+    fig.suptitle(title)
     ax.grid(linewidth=0.5)
     ax.tick_params(
         axis="both",
@@ -55,7 +56,7 @@ def cool_scatter(x, y=None, show_plot=True, name="cool_scatter"):
     if show_plot is True:
         plt.show()
 
-def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=True):
+def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", title="", show_plot=False):
     """
     Создает красивый график на основе входных данных.
 
@@ -91,6 +92,7 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
     fig = gcf()
     fig.canvas.manager.set_window_title(name)
     fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, hspace=0.1)
+    fig.suptitle(title)
     ax1.plot(x)
     ax1.plot(y)
     ax1.grid(linewidth=0.5)
@@ -126,7 +128,7 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_pl
     if show_plot is True:
         plt.show()
 
-def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=True, print_stats=False):
+def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=False, print_stats=False):
     """
     Создает scatter plot для угловых координат.
     
@@ -193,7 +195,7 @@ def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", sho
     if show_plot is True:
         plt.show()
 
-def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
+def eye_pattern(x, y=None, symbol_len = 10, show_plot=False):
     """
     Функция eye_pattern отображает глазковую диаграмму для заданного сигнала.
     
@@ -245,7 +247,7 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=True):
 
 
 
-def _cool_scatter_dev(x, y=None, show_plot=True, name="cool_scatter"):
+def _cool_scatter_dev(x, y=None, show_plot=False, name="cool_scatter"):
     """
     Тот же cool_scatter, но со scale точек
     """

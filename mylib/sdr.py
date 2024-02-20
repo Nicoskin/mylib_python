@@ -109,6 +109,7 @@ def rx_cycles_buffer(sdr, num_cycles: int = 1):
         for cycle in range(num_cycles):  # Считывает num_cycles циклов Rx
             new_data = sdr.rx()
             rx.extend(new_data)
+        sdr.tx_destroy_buffer()
         return array(rx)
     except NameError:
         print("(ERROR MyLib): Переменная 'sdr' не определена.")

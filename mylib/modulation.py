@@ -195,15 +195,18 @@ def qam64(bits, amplitude = 2**14):
     return samples
 
 
-def bpsk_synchro(rx_array, syn):
+def bpsk_synchro(rx_array, syn, synchro_angle = 0, debug = False):
     """
     Поиск синхронизации bpsk в сигнале rx
+    Разворот на правильный угол, если синхронизация BPSK на угле 0.
         
     Параметры
     ----------
         `rx_array`: Массив сигнала
         
         `syn`: массив синхронизации
+        
+        `debag`: F|T, optional - дополнительный вывод графика и print начала и конца
     
     Возвращает
     --------
@@ -212,22 +215,34 @@ def bpsk_synchro(rx_array, syn):
     """
     import mylib as ml
     cor = ml.auto_corr(rx_array.real, syn)
-    
-    i_cor = np.argmax(abs(cor), axis=0)
-    
+    # i_cor = np.argmax(abs(cor), axis=0)
+    for i in range(len(cor)):
+        if abs(cor[i]) >= 0.93:
+            i_cor = i
+            break
     # Поиск второй синхронизации
     i_cor_end = 0
-    for i in range(len(cor)-1, 0, -1): 
-        if abs(cor[i]) > 0.95:
+    for i in range(i_cor+1, len(cor), 1): 
+        if abs(cor[i]) > 0.95 and i_cor_end == 0:
             i_cor_end = i
-            break
-            
+            break 
     if i_cor_end == 0:
         rx_array = rx_array[i_cor:]
     else:
         rx_array = rx_array[i_cor:i_cor_end]
     
-    angle = np.angle(rx_array[0]) # угол синхры
+    if debug:
+        ml.cool_plot(cor, title="Корреляция")
+        print("start =",i_cor, end=" | ")
+        print("end =",i_cor_end)  
+
+    if synchro_angle == 0:
+        angle = np.angle(rx_array[0]) # угол синхры если bpsk на угле 0
+    elif synchro_angle == 45:
+         angle = np.angle(rx_array[0]) + np.pi/4
+    else:
+        print("(ERR MYLIB)\n    Некорректный ввод synchro_angle\n")
+    
     rx_array = rx_array * np.exp(1j * -angle) # разворот на нужный угол
     
     return rx_array
