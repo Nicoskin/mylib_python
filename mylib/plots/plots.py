@@ -5,7 +5,7 @@ from pylab import gcf
 
 call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye = 0, 0, 0, 0
 
-def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title=""):
+def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title="", circle=False):
     """
     Создает точечную диаграмму с красивыми визуализациями.
 
@@ -14,6 +14,8 @@ def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title=""):
         `y`: (подобный массиву, необязательный): y-координаты точек. Если не указано, мнимая часть x будет использоваться в качестве y-координат.
         `show_plot`: (логическое значение, необязательный): Определяет, нужно ли отображать диаграмму. По умолчанию True.
         `name`:(строка, необязательный): Название окна диаграммы. По умолчанию "cool_scatter".
+        `title`:(строка, необязательный): Заголовок диаграммы. По умолчанию пустая строка.
+        `circle`:(логическое значение, необязательный): Определяет, нужно ли добавить круги на диаграмму. По умолчанию False.
     """
     global call_count_scat
     call_count_scat += 1
@@ -46,6 +48,19 @@ def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title=""):
     ax.scatter(x, y, s=10, c=colors, cmap="hsv", alpha=0.9)
     ax.axhline(y=0, color="black", linestyle="--", linewidth=1)
     ax.axvline(x=0, color="black", linestyle="--", linewidth=1)
+    
+    if circle is True:
+        import matplotlib.patches as patches
+        if (max(x) > 2.5) & (max(x) < 100):
+            points = [(1, 1), (-1, -1), (-1, 1), (1, -1),
+                      (1, 3), (-1, -3), (-1, 3), (1, -3),
+                      (3, 1), (-3, -1), (-3, 1), (3, -1),
+                      (3, 3), (-3, -3), (-3, 3), (3, -3)]
+        else:
+            points = [(1, 1), (-1, -1), (-1, 1), (1, -1)]
+        for point in points:
+            circle = patches.Circle(point, 0.5, edgecolor='b', facecolor='none', linewidth=0.5)
+            ax.add_patch(circle)
 
     maxi = np.max((abs(x) ** 2 + abs(y) ** 2) ** 0.5)
     maxi *= 1.05
@@ -56,48 +71,28 @@ def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title=""):
     if show_plot is True:
         plt.show()
 
-def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", title="", show_plot=False):
-    """
-    Создает красивый график на основе входных данных.
 
-    Параметры:
-    - x: одномерный массив или список значений для оси x.
-    - y: одномерный массив или список значений для оси y. Если не указан, будет использовано мнимая часть x.
-    - gap: тип разрыва на графике. Может быть "none" (без разрыва), "snake" (змеевидный разрыв) или "jump" (скачок разрыв).
-    - show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию True.
-
-    Возвращает:
-    Ничего.
-
-    Пример использования:
-    cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
-    """
-    name = 'cool_plot'
-    global call_count_plot
-    call_count_plot += 1
-    if call_count_plot >= 2:
-        num_ = 87954 + call_count_plot
-        name = name + f'{call_count_plot}'
-    else:
-        num_ = 87954
-        
-    if not isinstance(x, np.ndarray):  # Проверка на numpy
-        x = np.array(x)
-
-    if y is None:
-        y = x.imag
-        x = x.real
-
-    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num=num_)
-    fig = gcf()
-    fig.canvas.manager.set_window_title(name)
-    fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, hspace=0.1)
-    fig.suptitle(title)
-    ax1.plot(x)
-    ax1.plot(y)
+def _cool_plot_first(x, y, vid, num_ = 87954):
+    fig, ax1 = plt.subplots(1, sharex=True, figsize=(10, 5), num=num_)
+    fig.subplots_adjust(left=0.07, bottom=0.08, right=0.95, top=0.92, hspace=0.1)
+    ax1.plot(x, vid)
+    ax1.plot(y, vid)
     ax1.grid(linewidth=0.5)
     rx = np.array(x) + 1j * np.array(y)
-    ax1.axis([-10, len(rx) + 10, -max(abs(rx)) * 1.05, max(abs(rx)) * 1.05])
+    maximum = max(max(abs(rx.real)), max(abs(rx.imag)))
+    ax1.axis([-len(rx) * 0.02, len(rx) * 1.02, -maximum * 1.15, maximum * 1.15])
+
+    return fig
+
+def _cool_plot_second(x, y, vid, num_ = 87954, gap: Literal["none", "snake", "jump"] = "none"):
+    fig, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(9, 7), num=num_)
+    fig.subplots_adjust(left=0.08, bottom=0.05, right=0.95, top=0.95, hspace=0.1)
+    ax1.plot(x, vid)
+    ax1.plot(y, vid)
+    ax1.grid(linewidth=0.5)
+    rx = np.array(x) + 1j * np.array(y)
+    maximum = max(max(abs(rx.real)), max(abs(rx.imag)))
+    ax1.axis([-len(rx) * 0.02, len(rx) * 1.02, -maximum * 1.15, maximum * 1.15])
 
     ax2.grid(linewidth=0.5)
     an = []
@@ -123,10 +118,56 @@ def cool_plot(x, y=None, gap: Literal["none", "snake", "jump"] = "none", title="
     an = np.array(an)
 
     ax2.plot(an)
-    ax2.set_xlim(-10, len(an) + 10)
+    
+    return fig
+    
+def cool_plot(x, y=None, vid = '-', sec_plot = False, gap: Literal["none", "snake", "jump"] = "none", title="", show_plot=False):
+    """
+    Создает красивый график на основе входных данных.
+
+    Параметры:
+    - x: одномерный массив или список значений для оси x.
+    - y: одномерный массив или список значений для оси y. Если не указан, будет использована мнимая часть x.
+    - vid: тип линии графика. По умолчанию '-'.
+    - sec_plot: флаг, указывающий, нужно ли создать второй график. По умолчанию False.
+    - gap: тип разрыва на графике. Может быть "none" (без разрыва), "snake" (змеевидный разрыв) или "jump" (скачок разрыв). По умолчанию "none".
+    - title: заголовок графика. По умолчанию пустая строка.
+    - show_plot: флаг, указывающий, нужно ли отображать график. По умолчанию False.
+
+    Возвращает:
+    Ничего.
+
+    Пример использования:
+    cool_plot([1, 2, 3, 4], [5, 6, 7, 8], gap="snake", show_plot=True)
+    """
+    name = 'cool_plot'
+    global call_count_plot
+    call_count_plot += 1
+    if call_count_plot >= 2:
+        num_ = 87954 + call_count_plot
+        name = name + '_' +f'{call_count_plot}'
+    else:
+        num_ = 87954
+        
+    if not isinstance(x, np.ndarray):  # Проверка на numpy
+        x = np.array(x)
+
+    if y is None:
+        y = x.imag
+        x = x.real
+
+    if not sec_plot:
+        fig = _cool_plot_first(x, y, vid, num_)
+    elif sec_plot:
+        fig = _cool_plot_second(x, y, vid, num_, gap)
+
+    fig = gcf()
+    fig.canvas.manager.set_window_title(name)
+    fig.suptitle(title)
 
     if show_plot is True:
         plt.show()
+
 
 def angle_scatter(x, y=None, gap: Literal["none", "snake", "jump"] = "none", show_plot=False, print_stats=False):
     """

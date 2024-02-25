@@ -27,7 +27,6 @@ import mylib.test as mltest
 str_to_bits
 bits_to_str
 gen_rand_bits
-merge_arr
 corr_no_shift
 corr_array
 autocorr
@@ -50,6 +49,7 @@ qam64
 
 bpsk_synchro
 dem_qpsk
+dem_qam16
 ```
 
 ### mylib.plots

@@ -3,7 +3,6 @@
 - str_to_bits
 - bits_to_str
 - gen_rand_bits
-- merge_arr
 - corr_no_shift
 - corr_array
 - auto_corr
@@ -55,25 +54,9 @@ def bits_to_str(bit_array):
 
     # Преобразуем каждый байт в десятичное число и затем в символ ASCII
     decoded_str = ''.join([chr(int(''.join(map(str, byte)), 2)) for byte in bytes_list])
-
+    decoded_str = decoded_str.rstrip('\x00')
+    
     return decoded_str
-
-def merge_arr(x,y):
-    """Обьединяет 2 массива
-
-    Параметры
-    ----------
-        `x`, `y`: Первый и второй массив
-
-    Возвращает
-    --------
-        `x+y`: NParray
-            Массив из соединённых массивов x y
-    """
-    x = list(x)
-    y = list(y)
-    c = np.array(x+y)
-    return c
 
 def corr_no_shift(x, y, norm=True):
     """

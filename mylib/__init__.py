@@ -11,7 +11,7 @@ MyLib
 `BASE`
 - str_to_bits
 - bits_to_str
-- merge_arr
+- gen_rand_bits
 - correlation
 - corr_array
 - auto_corr
@@ -26,8 +26,9 @@ MyLib
 - qpsk
 - qam16
 - qam64
-* qpskDem
-* bpskSynchro
+* dem_qpsk
+* dem_qam16
+* bpsk_synchro
 
 `Plots`
 - cool_scatter

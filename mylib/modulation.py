@@ -9,6 +9,7 @@
 
 `Демодуляция`
 - dem_qpsk
+- dem_qam16
 
 """
 
@@ -26,7 +27,7 @@ def bpsk(bits, amplitude = 2**14, quadrature = 0):
         `amplitude` : int, optional
             По умолчанию 2**14
             
-        `In_phase` : 0|1, optional
+        `quadrature` : 0|1, optional
             если 0 то Q=0 | если 1 то Q=I
         
     Возвращает
@@ -262,18 +263,75 @@ def dem_qpsk(symbols):
         `decoded_bits_array` : numpy array
             
     """
-    
+        
     def demodulate_qpsk_symbol(symbol):
-        if np.real(symbol) > 0:
-            if np.imag(symbol) > 0:
-                return np.array([0, 0])
-            else:
-                return np.array([0, 1])
-        else:
-            if np.imag(symbol) > 0:
-                return np.array([1, 0])
-            else:
-                return np.array([1, 1])
+        # Определяем QPSK символы
+        qpsk_symbols = [1+1j, 1-1j, -1+1j, -1-1j]
 
-    decoded_bits_array = np.array([demodulate_qpsk_symbol(symbol) for symbol in symbols])
+        # Проверяем, находится ли символ в пределах 0.5 от каждого QPSK символа
+        for i, qpsk_symbol in enumerate(qpsk_symbols):
+            if abs(symbol - qpsk_symbol) <= 0.5:
+                # Возвращаем соответствующий бит
+                return np.array([i//2, i%2])
+
+        # Если символ не соответствует ни одному из QPSK символов, возвращаем [0, 0]
+        return np.array([0, 0])
+
+    maxi = max(max(symbols.real), max(symbols.imag))
+    symbols = symbols / maxi
+    symbols = symbols * 1.3334
+    
+    # from .plots import cool_scatter 
+    # cool_scatter(symbols)
+    
+    decoded_bits_array = np.array([demodulate_qpsk_symbol(sym) for sym in symbols])
     return decoded_bits_array.flatten()
+
+def dem_qam16(symbols):
+    """
+    Дешифровка qam16 символов
+
+    Параметры
+    ---------
+        `symbols`: array
+            Символы qam16
+
+    Возвращает
+    ---------
+        `decoded_bits_array` : numpy array
+            
+    """
+    # Создание маппинга символов 16-QAM
+    qam16_symbols = {
+        1 + 1j: (0, 0, 0, 0),
+        1 + 3j: (0, 0, 0, 1),
+        3 + 1j: (0, 0, 1, 0),
+        3 + 3j: (0, 0, 1, 1),
+        1 - 1j: (0, 1, 0, 0),
+        1 - 3j: (0, 1, 0, 1),
+        3 - 1j: (0, 1, 1, 0),
+        3 - 3j: (0, 1, 1, 1),
+        -1 + 1j: (1, 0, 0, 0),
+        -1 + 3j: (1, 0, 0, 1),
+        -3 + 1j: (1, 0, 1, 0),
+        -3 + 3j: (1, 0, 1, 1),
+        -1 - 1j: (1, 1, 0, 0),
+        -1 - 3j: (1, 1, 0, 1),
+        -3 - 1j: (1, 1, 1, 0),
+        -3 - 3j: (1, 1, 1, 1),
+    }
+
+    # Нормализация символов
+    maxi = max(max(symbols.real), max(symbols.imag))
+    symbols = symbols / maxi
+    symbols = symbols * 1.3334 * 3
+    
+    # Демодуляция символов
+    decoded_bits_array = []
+    for sym in symbols:
+        # Находим ближайший QAM16 символ
+        closest_symbol = min(qam16_symbols.keys(), key=lambda x: abs(x - sym))
+        # Добавляем соответствующие биты в массив
+        decoded_bits_array.append(qam16_symbols[closest_symbol])
+
+    return np.array(decoded_bits_array).flatten()
