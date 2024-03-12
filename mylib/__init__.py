@@ -2,9 +2,11 @@
 MyLib
 =====
 
-    import mylib as ml
+import mylib as ml  
     
-    import mylib.test as mltest
+from mylib import ic  
+        
+import mylib.test as mltest     
   
 Функции
 --------
@@ -26,9 +28,16 @@ MyLib
 - qpsk
 - qam16
 - qam64
+- qam256
 * dem_qpsk
 * dem_qam16
 * bpsk_synchro
+
+`OFDM`
+- ofdm_64
+- get_sample_rate_from_freq_step
+- activ_carriers
+- synchro_ofdm
 
 `Plots`
 - cool_scatter
@@ -43,3 +52,7 @@ from .base import *
 from .sdr import *
 from .modulation import *
 from .plots import *
+from .ofdm import *
+
+from icecream import ic
+__all__ = ['ic']

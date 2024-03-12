@@ -6,7 +6,7 @@
   
 """
 
-def sdr_settings(ip = "ip:192.168.3.1",
+def sdr_settings(ip = "192.168.3.1",
                  frequency = 2e9,
                  buffer_size = 1e3,
                  sample_rate = 1e6,
@@ -15,12 +15,12 @@ def sdr_settings(ip = "ip:192.168.3.1",
     """
     Базовые настройки sdr
     
-    sdr = sdr_settings("ip:192.168.3.1")
-    sdr = sdr_settings("ip:192.168.3.1", 2300e6+(2e6*2), 1000, 1e6,0,30) # type: ignore
+    sdr = ml.sdr_settings("192.168.3.1")
+    sdr = ml.sdr_settings("192.168.3.1", 2300e6+(2e6*2), 1000, 1e6, 0, 30,'manual') # type: ignore
     
     Параметры
     ----------
-        `ip` : "ip:192.168.3.1" / "ip:192.168.2.1"
+        `ip` : "192.168.3.1" / "192.168.2.1"
         
         `frequency` : частота дискретизации
             от 325 [МГц] до 3.8 [ГГц] | 
@@ -44,7 +44,8 @@ def sdr_settings(ip = "ip:192.168.3.1",
         `sdr`: настроенный класс "sdr"
     """    
     import adi
-    sdr = adi.Pluto(ip)
+    ip_str = 'ip:'
+    sdr = adi.Pluto(ip_str+ip)
 
     sdr.rx_lo = int(frequency)
     sdr.tx_lo = int(frequency)

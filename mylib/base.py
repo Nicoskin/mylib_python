@@ -76,8 +76,9 @@ def corr_no_shift(x, y, norm=True):
     y = np.asarray(y)
 
     if norm:
-        c = np.dot(x, y) / (np.linalg.norm(x) * np.linalg.norm(y))
-        return c
+        c_real = np.dot(x.real, y.real) / (np.linalg.norm(x.real) * np.linalg.norm(y.real))
+        c_imag = np.dot(x.imag, y.imag) / (np.linalg.norm(x.imag) * np.linalg.norm(y.imag))
+        return c_real+1j*c_imag
     else:
         c = np.dot(x, y)
         return c
