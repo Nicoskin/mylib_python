@@ -6,6 +6,7 @@
 - corr_no_shift
 - corr_array
 - auto_corr
+- zadoff_chu
 
 """
 
@@ -148,3 +149,12 @@ def gen_rand_bits(n: int):
     """
     bit_array = np.random.randint(0, 2, n)
     return bit_array
+
+def zadoff_chu(N, u):
+    """
+    Zadoff-Chu sequence
+    N - length
+    u - root index
+    """
+    n = np.arange(0, N)
+    return np.exp(-1j * np.pi * u * n * (n + 1) / N)
