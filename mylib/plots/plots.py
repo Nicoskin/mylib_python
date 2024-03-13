@@ -80,7 +80,11 @@ def _cool_plot_first(x, y, vid, num_ = 87954):
     ax1.grid(linewidth=0.5)
     rx = np.array(x) + 1j * np.array(y)
     maximum = max(max(abs(rx.real)), max(abs(rx.imag)))
-    ax1.axis([-len(rx) * 0.02, len(rx) * 1.02, -maximum * 1.15, maximum * 1.15])
+    minimum = min(min(rx.real), min(rx.imag))
+    if minimum >= 0:
+        ax1.axis([-len(rx) * 0.02, len(rx) * 1.02, -maximum*0.05, maximum * 1.15])
+    else:
+        ax1.axis([-len(rx) * 0.02, len(rx) * 1.02, -maximum * 1.15, maximum * 1.15])
 
     return fig
 

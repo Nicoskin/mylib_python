@@ -59,7 +59,7 @@ def bits_to_str(bit_array):
     
     return decoded_str
 
-def corr_no_shift(x, y, norm=True):
+def corr_no_shift(x, y, norm=True, complex = False):
     """
     Вычисляет взаимную корреляцию двух одномерных массивов(без смещения)
     
@@ -69,6 +69,8 @@ def corr_no_shift(x, y, norm=True):
         
         norm: есть нормирование или нет
         
+        complex: есть ли комплексные переменные в массивах
+        
     Возвращает
     ----------  
         Корреляция
@@ -76,10 +78,13 @@ def corr_no_shift(x, y, norm=True):
     x = np.asarray(x)
     y = np.asarray(y)
 
-    if norm:
+    if norm and complex:
         c_real = np.dot(x.real, y.real) / (np.linalg.norm(x.real) * np.linalg.norm(y.real))
         c_imag = np.dot(x.imag, y.imag) / (np.linalg.norm(x.imag) * np.linalg.norm(y.imag))
         return c_real+1j*c_imag
+    elif norm:
+        c = np.dot(x, y) / (np.linalg.norm(x) * np.linalg.norm(y))
+        return c
     else:
         c = np.dot(x, y)
         return c
@@ -153,8 +158,9 @@ def gen_rand_bits(n: int):
 def zadoff_chu(N, u):
     """
     Zadoff-Chu sequence
-    N - length
-    u - root index
+        N - length
+        
+        u - root index
     """
     n = np.arange(0, N)
     return np.exp(-1j * np.pi * u * n * (n + 1) / N)

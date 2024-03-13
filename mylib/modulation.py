@@ -6,6 +6,7 @@
 - qpsk
 - qam16
 - qam64
+- qam256
 
 `Демодуляция`
 - dem_qpsk

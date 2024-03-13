@@ -19,9 +19,9 @@ import mylib.test as mltest
 - auto_corr
 
 `SDR`
-- sdrSettings
-- txSig
-- rxCyclesBuffer
+- sdr_settings
+- tx_sig
+- rx_cycles_buffer
 
 `Modulation`
 - bpsk
@@ -35,7 +35,7 @@ import mylib.test as mltest
 
 `OFDM`
 - ofdm_64
-- get_sample_rate_from_freq_step
+- get_sr_from_freq_step
 - activ_carriers
 - synchro_ofdm
 

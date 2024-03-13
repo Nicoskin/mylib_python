@@ -1,6 +1,6 @@
 """
 - ofdm_64
-- get_sample_rate_from_freq_step
+- get_sr_from_freq_step
 - activ_carriers
 - synchro_ofdm
 """
@@ -54,7 +54,10 @@ def ofdm_64(symbols, amplitude=2**15, ravel=True):
                 index_sym += 1
 
     # arr_symols = np.fft.fftshift(arr_symols, axes=1) # Лишний разворот
-
+    
+    # from .plots import cool_plot
+    # cool_plot(np.ravel(arr_symols))
+    
     # IFFT
     ifft = np.zeros((len(symbols), fft_len), dtype=complex)
     for i in range(len(arr_symols)):
@@ -72,7 +75,8 @@ def ofdm_64(symbols, amplitude=2**15, ravel=True):
 
     return fft_cp
 
-def get_sample_rate_from_freq_step(freq_step, fft_len):
+def get_sr_from_freq_step(freq_step, fft_len):
+    """Какая должна быть частота дискретизации с определенным шагом между поднесущими и длинной FFT"""
     return freq_step * fft_len
 
 def activ_carriers(fft_len, GB, PC, zero_64=False):
@@ -82,6 +86,8 @@ def activ_carriers(fft_len, GB, PC, zero_64=False):
     GB - guard_band_len
 
     PC - pilot_carriers
+    
+    Возвращает массив поднесущих на которых имеются данные
     """
     activ = np.array([
             i
@@ -102,20 +108,26 @@ def synchro_ofdm(rx):
     Циклический префикс - 16
 
     fft - 64
-    """
-    from .plots import cool_plot
     
-    corr = []
+    Возвращает массив начала символов (вместе с CP) (чтобы только символ был нужно index + 16)
+    """
+    corr = [] # Массив корреляции 
     for i in range(len(rx)):
-        o = corr_no_shift(rx[:16], rx[64:80])
-        corr.append(o)
+        o = corr_no_shift(rx[:16], rx[64:80], complex=True)
+        corr.append(abs(o))
         rx = np.roll(rx, 1)
+        
+    corr = np.array(corr) / np.max(corr) # Нормирование
 
-    arr_index = []
+    arr_index = [] # Массив индексов максимальных значений corr
     for i in range(0, len(corr)-80, 80):
         max = np.max(corr[i : i+80])
-        if (max.real > 0.9) or (max.imag > 0.9):
+        if max > 0.9: 
             arr_index.append(i + np.argmax(corr[i : i+80]))
-    cool_plot(corr,show_plot=True)
-    print(arr_index)
+    
+    ### DEBUG
+    # print(arr_index)
+    # from .plots import cool_plot
+    # cool_plot(corr, title='corr')
+    
     return arr_index

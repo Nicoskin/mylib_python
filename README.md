@@ -46,10 +46,19 @@ bpsk
 qpsk
 qam16
 qam64
+qam256
 
 bpsk_synchro
 dem_qpsk
 dem_qam16
+```
+
+### mylib.ofdm
+```
+ofdm_64
+get_sr_from_freq_step
+activ_carriers
+synchro_ofdm
 ```
 
 ### mylib.plots
