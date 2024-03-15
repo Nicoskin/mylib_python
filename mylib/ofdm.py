@@ -55,8 +55,8 @@ def ofdm_64(symbols, amplitude=2**15, ravel=True):
 
     # arr_symols = np.fft.fftshift(arr_symols, axes=1) # Лишний разворот
     
-    # from .plots import cool_plot
-    # cool_plot(np.ravel(arr_symols))
+    from .plots import cool_plot
+    cool_plot(np.ravel(arr_symols))
     
     # IFFT
     ifft = np.zeros((len(symbols), fft_len), dtype=complex)

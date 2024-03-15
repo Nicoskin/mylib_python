@@ -30,6 +30,7 @@ gen_rand_bits
 corr_no_shift
 corr_array
 autocorr
+zadoff_chu
 ```
 
 

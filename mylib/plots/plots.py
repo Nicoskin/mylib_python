@@ -3,7 +3,7 @@ import numpy as np
 from typing import Literal
 from pylab import gcf
 
-call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye = 0, 0, 0, 0
+call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye, call_count_heat = 0, 0, 0, 0, 0
 
 def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title="", circle=False):
     """
@@ -290,6 +290,43 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=False):
     if show_plot:
         plt.show()
 
+def heat_map(rx, len_sym = 80, razreshenie = 1e5, transpose = True, title="", show_plot=False):
+    
+    name = 'heat_map'
+    global call_count_heat
+    call_count_heat += 1
+    if call_count_heat >= 2:
+        num_ = 472 + call_count_heat
+        name = name + '_' +f'{call_count_heat}'
+    else:
+        num_ = 472
+        
+    if transpose:
+        fig, ax1 = plt.subplots(1, sharex=True, figsize=(6, 8), num=num_)
+        fig.subplots_adjust(left=0.15, bottom=0.08, right=0.98, top=0.96)
+    else:
+        fig, ax1 = plt.subplots(1, sharex=True, figsize=(8, 6), num=num_)
+        fig.subplots_adjust(left=0.05, bottom=0.08, right=0.98, top=0.96)
+        
+    fig = gcf()
+    fig.canvas.manager.set_window_title(name)
+    fig.suptitle(title)
+    
+    # тепловая карта
+    razreshenie = int(razreshenie) # (len(ofdm)//80
+    ff = np.zeros((len(rx)//len_sym, razreshenie))
+    
+    for i in range(len(rx)//len_sym - 1):
+        zn = rx[len_sym*i : len_sym*(i+1)] 
+        ff[i] = np.fft.fftshift(abs(np.fft.fft(zn, razreshenie)))
+    
+    if transpose:
+        ax1.imshow(ff.transpose(), aspect = 'auto')
+    else:
+        ax1.imshow(ff, aspect = 'auto')
+    
+    if show_plot is True:
+        plt.show()
 
 
 def _cool_scatter_dev(x, y=None, show_plot=False, name="cool_scatter"):

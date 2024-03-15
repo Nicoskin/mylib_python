@@ -53,6 +53,7 @@ from .sdr import *
 from .modulation import *
 from .plots import *
 from .ofdm import *
+from .class_ofdm import *
 
 from icecream import ic
 __all__ = ['ic']

@@ -139,28 +139,44 @@ def auto_corr(x, y):
     arr = np.array(arr)
     return arr
 
-def gen_rand_bits(n: int):
+def gen_rand_bits(n: int, seed = 100):
     """
     Генерирует случайную битовую последовательность
 
     Параметры
     ----------
         `n`: длинна битовой последовательности
+        
+        `seed`: сид рандом функции
+
 
     Возвращает
     --------
         `bit_array`: NParray
             Массив случайных битов
     """
+    np.random.seed(seed)
     bit_array = np.random.randint(0, 2, n)
     return bit_array
 
-def zadoff_chu(N, u):
+def zadoff_chu(N=1, u=25, PSS=False):
     """
     Zadoff-Chu sequence
         N - length
         
-        u - root index
+        u - root index 25 29 34
+        
+        PSS [optional] - Primary synchronization signal
+            N - 63 
+            Len - 62
     """
-    n = np.arange(0, N)
-    return np.exp(-1j * np.pi * u * n * (n + 1) / N)
+    if PSS:
+        N = 63
+        n = np.arange(0, 31)
+        ex1 = np.exp(-1j * np.pi * u * n * (n + 1) / N)
+        n = np.arange(31, 62)
+        ex2 = np.exp(-1j * np.pi * u * (n + 1) * (n + 2) / N)
+        return np.concatenate([ex1, ex2])
+    else:  
+        n = np.arange(0, N)
+        return np.exp(-1j * np.pi * u * n * (n + 1) / N)
