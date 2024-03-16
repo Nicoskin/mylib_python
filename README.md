@@ -54,12 +54,15 @@ dem_qpsk
 dem_qam16
 ```
 
-### mylib.ofdm
+### mylib.class_ofdm
 ```
-ofdm_64
-get_sr_from_freq_step
-activ_carriers
-synchro_ofdm
+OFDM_MOD
+    modulation
+    fft
+    get_sr_from_freq_step
+    activ_carriers
+    indiv_symbols
+        indexs_of_CP
 ```
 
 ### mylib.plots
@@ -68,6 +71,7 @@ cool_scatter
 cool_plot
 angle_scatter
 eye_pattern
+heat_map
 ```
 
 ### mylib.test

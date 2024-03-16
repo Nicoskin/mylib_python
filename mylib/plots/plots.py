@@ -291,7 +291,9 @@ def eye_pattern(x, y=None, symbol_len = 10, show_plot=False):
         plt.show()
 
 def heat_map(rx, len_sym = 80, razreshenie = 1e5, transpose = True, title="", show_plot=False):
-    
+    """
+    Получает OFDM символы и отображает их спектр в виде тепловой карты.
+    """
     name = 'heat_map'
     global call_count_heat
     call_count_heat += 1
@@ -313,7 +315,7 @@ def heat_map(rx, len_sym = 80, razreshenie = 1e5, transpose = True, title="", sh
     fig.suptitle(title)
     
     # тепловая карта
-    razreshenie = int(razreshenie) # (len(ofdm)//80
+    razreshenie = int(razreshenie)
     ff = np.zeros((len(rx)//len_sym, razreshenie))
     
     for i in range(len(rx)//len_sym - 1):

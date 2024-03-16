@@ -50,7 +50,7 @@ class OFDM_MOD:
             case 2048:
                 return 847
             case _:
-                return 55
+                return 27
             
         return int(0.1 * N_fft)  # Example: GB length = 10% of N_fft
 
@@ -64,19 +64,13 @@ class OFDM_MOD:
         Returns:
             np.ndarray: Array of pilot subcarrier indices within the usable bandwidth.
         """
-
-        # Distribute pilots uniformly across usable subcarriers, avoiding edges
-        # for potential channel estimation issues.
         usable_bandwidth = self.N_fft - self.GB_len
         pilot_spacing = int(usable_bandwidth / (N_pil - 1))  # Spacing between pilots
 
         # Можно менять значение от 0 до 1
         #                          ↓
         pilot_carriers = np.arange(0 + self.GB_len//2, self.N_fft - self.GB_len//2+1, pilot_spacing)
-        ic(pilot_carriers)
-        # for i in range(len(pilot_carriers)):
-        #     if pilot_carriers[i] < 32 :
-        #         pilot_carriers[i] += 32
+
         for i in range(len(pilot_carriers)):
             if pilot_carriers[i] == 32:
                 pilot_carriers[i] += 1
@@ -99,15 +93,8 @@ class OFDM_MOD:
         Returns:
             np.ndarray: Array of complex pilot symbols based on the chosen constellation.
         """
-
-        # Choose a suitable pilot symbol constellation based on your requirements.
-        # Common choices include:
-        #  - QPSK (Quadrature Phase-Shift Keying): Robust to channel impairments.
-        #  - BPSK (Binary Phase-Shift Keying): Simplest constellation, good for SNR estimation.
-        #  - Custom constellation: Define your own symbol values for specific purposes.
-
         # Example using QPSK constellation:
-        pilot_symbols = np.exp(1j * np.pi * np.random.randint(0, 4, size=N_pilot))
+        #pilot_symbols = np.exp(1j * np.pi * np.random.randint(0, 4, size=N_pilot))
         pilot_symbols = [1+1j] * N_pilot
         return pilot_symbols
 
@@ -128,7 +115,7 @@ class OFDM_MOD:
         fft_len = self.N_fft
         GB = self.GB_len // 2
         PilCar = self.pilot_carriers
-        #ic(PilCar)
+
         if pilots:
             activ = np.array([
                     i
@@ -149,7 +136,7 @@ class OFDM_MOD:
         
         return activ
 
-    def modulation(self, amplitude=2**15, ravel=True):
+    def modulation(self, amplitude=2**16, ravel=True):
         """
         OFDM модуляция.
 
@@ -167,8 +154,7 @@ class OFDM_MOD:
         _guard_band_len = self.GB_len
         symbols =  self.QAM_sym
 
-        activ = self.activ_carriers()  # n carriers
-        ic(activ, len(activ))
+        activ = self.activ_carriers()
 
         # Разделение массива symbols на матрицу(по n в строке)
         len_arr = len(activ)
@@ -186,9 +172,9 @@ class OFDM_MOD:
         except ValueError:
             zero = np.zeros(len_arr - len(symbols))
             symbols = np.concatenate((symbols, zero))
-        #ic(len(symbols))
+        
         len_symbols = np.shape(symbols)
-        #ic(len_symbols, len_symbols[0], len_symbols[-1])
+        
         
         # Создание матрицы, в строчке по n символов QPSK
         if len(len_symbols) > 1: 
@@ -209,28 +195,23 @@ class OFDM_MOD:
                     else:
                         arr_symols[i][j] = symbols[index_sym]
                     index_sym += 1
-        #ml.cool_plot(arr_symols[0])  
-        #ic(arr_symols)          
+   
         arr_symols = np.fft.fftshift(arr_symols, axes=1)
-        #ml.cool_plot(arr_symols[0])
-        #ic(np.shape(arr_symols))
+
         # IFFT
         ifft = np.zeros((np.shape(arr_symols)[0], fft_len), dtype=complex)
-        #ic(np.shape(ifft))
         for i in range(len(arr_symols)):
             ifft[i] = np.fft.ifft(arr_symols[i])
-        #ic(np.shape(ifft))
-        #ml.cool_plot(np.fft.fftshift(abs(np.fft.fft(ifft[0], int(1e6)))), title='N_FFT - 64')
+
         # Добавление циклического префикса
         fft_cp = np.zeros((np.shape(arr_symols)[0], (fft_len + _cyclic_prefix_len)), dtype=complex)
         for i in range(np.shape(arr_symols)[0]):
             fft_cp[i] = np.concatenate((ifft[i][-_cyclic_prefix_len:], ifft[i]))
-        #ic(np.shape(fft_cp))
+        
+        fft_cp = fft_cp * amplitude
+        
         if ravel:
             return np.ravel(fft_cp)
-
-        fft_cp = fft_cp * amplitude
-
         return fft_cp
 
     def indexs_of_CP(self, rx):
@@ -240,7 +221,6 @@ class OFDM_MOD:
         from mylib import corr_no_shift
         cp = self.CP_len
         fft_len = self.N_fft
-        ic(cp, fft_len)
         
         corr = [] # Массив корреляции 
         for i in range(len(rx)):
@@ -254,17 +234,20 @@ class OFDM_MOD:
             max_len_cycle = len(corr)
         else:
             max_len_cycle = len(corr)-(fft_len+cp)
-            
+
         arr_index = [] # Массив индексов максимальных значений corr
-        for i in range(0, max_len_cycle, fft_len+cp):
-            max = np.max(corr[i : i+fft_len+cp])
+        for i in range(0, max_len_cycle, (fft_len+cp)):
+            max = np.max(corr[i : i+(fft_len+cp)])
             if max > 0.9: 
-                arr_index.append(i + np.argmax(corr[i : i+fft_len+cp]))
-        #ic(corr)
+                ind = i + np.argmax(corr[i : i+(fft_len+cp)])
+                if ind < (len(corr)-(fft_len+cp)):
+                    arr_index.append(ind)
+        
         ### DEBUG
-        print(arr_index)
-        from mylib import cool_plot
-        cool_plot(corr, title='corr')
+        # print(arr_index)
+        # print(corr)
+        # from mylib import cool_plot
+        # cool_plot(corr, title='corr', show_plot=False)
         
         return arr_index
 
@@ -279,24 +262,23 @@ class OFDM_MOD:
             
         return symbols
 
-    def fft_ofdm(self, ofdm_symbols, ravel = True, GB = False, pilots = True):
+    def fft(self, ofdm_symbols, ravel = True, GB = False, pilots = True):
         fft = []
         len_c = np.shape(ofdm_symbols)[0]
         for i in range(len_c):
             if len_c == 1:
                 zn = np.fft.fftshift(np.fft.fft(ofdm_symbols))
-                if GB is False:
-                    zn = zn[self.activ_carriers(False)]
-                elif (GB is True) and (pilots is False):
-                    zn = zn[self.activ_carriers()]
-                fft.append(zn)
             else:
                 zn = np.fft.fftshift(np.fft.fft(ofdm_symbols[i]))
-                if (GB is False) and (pilots is False):
-                    zn = zn[self.activ_carriers(False)]
-                elif pilots is True:
-                    zn = zn[self.activ_carriers()]
-                fft.append(zn)
+                
+            if (GB is False) and (pilots is False):
+                zn = zn[self.activ_carriers(False)]
+            elif (GB is True):
+                pass
+            else:
+                zn = zn[self.activ_carriers()]
+                
+            fft.append(zn)
                 
         if ravel:
             ret = np.ravel(fft)

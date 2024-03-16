@@ -155,7 +155,8 @@ def gen_rand_bits(n: int, seed = 100):
         `bit_array`: NParray
             Массив случайных битов
     """
-    np.random.seed(seed)
+    if seed != 0:
+        np.random.seed(seed)
     bit_array = np.random.randint(0, 2, n)
     return bit_array
 
