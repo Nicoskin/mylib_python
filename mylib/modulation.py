@@ -277,14 +277,14 @@ def dem_qpsk(symbols):
         # Определяем QPSK символы
         qpsk_symbols = [1+1j, 1-1j, -1+1j, -1-1j]
 
-        # Проверяем, находится ли символ в пределах 0.5 от каждого QPSK символа
+        # Проверяем, находится ли символ в пределах 1 от каждого QPSK символа
         for i, qpsk_symbol in enumerate(qpsk_symbols):
-            if abs(symbol - qpsk_symbol) <= 0.5:
+            if abs(symbol - qpsk_symbol) <= 1:
                 # Возвращаем соответствующий бит
                 return np.array([i//2, i%2])
 
         # Если символ не соответствует ни одному из QPSK символов, возвращаем [0, 0]
-        return np.array([0, 0])
+        return None
 
     maxi = max(max(symbols.real), max(symbols.imag))
     symbols = symbols / maxi
@@ -292,9 +292,15 @@ def dem_qpsk(symbols):
     
     # from .plots import cool_scatter 
     # cool_scatter(symbols)
+    decoded_bits_array = []
+    for sym in symbols:
+        a = demodulate_qpsk_symbol(sym)
+        if a is not None:
+            decoded_bits_array.append(a.tolist())
+    #print(decoded_bits_array)        
+    #decoded_bits_array = np.array([demodulate_qpsk_symbol(sym) for sym in symbols])
     
-    decoded_bits_array = np.array([demodulate_qpsk_symbol(sym) for sym in symbols])
-    return decoded_bits_array.flatten()
+    return np.array(decoded_bits_array).flatten()
 
 def dem_qam16(symbols):
     """

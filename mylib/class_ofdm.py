@@ -13,7 +13,7 @@ class OFDM_MOD:
     
     G Sc: 25 55 75 211 423 635 847
     """
-    def __init__(self, QAM_sym, N_fft: int = 64, GB = 0, N_pilot = None):
+    def __init__(self, QAM_sym = None, N_fft: int = 128, GB = 0, N_pilot = None):
         self.N_fft = N_fft
         self.QAM_sym = QAM_sym
 
@@ -217,17 +217,17 @@ class OFDM_MOD:
         # Делим массив символов на матрицу
         #(в строке элеметнов = доступных поднесущих)
         symbols = reshape_symbols(symbols, activ)
-        ic(np.shape(symbols))
+        #ic(np.shape(symbols))
         # Добавление нулевых строк для чётности "5"
         if np.shape(symbols)[0] % 5 != 0:
             zero = np.zeros((5 - np.shape(symbols)[0] % 5, len(activ)))
             symbols = np.concatenate((symbols, zero))
         
         arr_symols = distrib_subcarriers(symbols, activ, fft_len)
-        ic(np.shape(arr_symols))
+        #ic(np.shape(arr_symols))
         #ml.cool_plot(np.ravel(arr_symols))
         arr_symols = self.add_pss(arr_symols)
-        ic(np.shape(arr_symols)) 
+        ic('distrib_subcarriers | Количество OFDM символов', np.shape(arr_symols)) 
         #ml.cool_plot(np.ravel(arr_symols))     
         arr_symols = np.fft.fftshift(arr_symols, axes=1)
         
@@ -259,7 +259,7 @@ class OFDM_MOD:
         for i in range(len(rx)):
             o = corr_no_shift(rx[:cp], rx[fft_len:fft_len+cp], complex=True)
             corr.append(abs(o))
-            rx = np.roll(rx, 1)
+            rx = np.roll(rx, -1)
             
         corr = np.array(corr) / np.max(corr) # Нормирование
 
@@ -282,6 +282,46 @@ class OFDM_MOD:
         # print(corr)
         from mylib import cool_plot
         cool_plot(corr, title='corr', show_plot=False)
+        
+        return arr_index
+
+    def indexs_of_CP_after_PSS(self, rx):
+        """
+        Возвращает массив начала символов (вместе с CP) (чтобы только символ был нужно index + 16)
+        """
+        from mylib import corr_no_shift
+        cp = self.CP_len
+        fft_len = self.N_fft
+        
+        corr = [] # Массив корреляции 
+        for i in range(len(rx) - fft_len):
+            o = corr_no_shift(rx[:cp], rx[fft_len:fft_len+cp], complex=True)
+            corr.append(abs(o))
+            rx = np.roll(rx, -1)
+            
+        corr = np.array(corr) / np.max(corr) # Нормирование
+        max_len_cycle = len(corr)
+        # if corr[0] > 0.97:
+        #     max_len_cycle = len(corr)
+        # else:
+        #     max_len_cycle = len(corr)-(fft_len+cp)
+
+        ind = np.argmax(corr[0 : (fft_len+cp)// 2 ])
+        arr_index = [] # Массив индексов максимальных значений corr
+        arr_index.append(ind)
+        for i in range((fft_len+cp) // 2, max_len_cycle, (fft_len+cp)):
+            #print(i, i+(fft_len+cp))
+            max = np.max(corr[i : i+(fft_len+cp)])
+            if max > 0.9: 
+                ind = i + np.argmax(corr[i : i+(fft_len+cp)])
+                if ind < (len(corr)):
+                    arr_index.append(ind)
+        
+        ### DEBUG
+        print(arr_index)
+        # print(corr)
+        from mylib import cool_plot
+        cool_plot(corr, title='corr afte PSS', show_plot=False)
         
         return arr_index
 
@@ -308,10 +348,10 @@ class OFDM_MOD:
             corr.append(abs(o))
         
         corr = np.array(corr) / np.max(corr)
-        
+        #ml.cool_plot(corr, show_plot=True)
         #maxi = np.argmax(corr)
         for i in range(len(corr)):
-            if corr[i] > 0.95:
+            if corr[i] > 0.98:
                 maxi = i
                 break
         maxi = maxi - 31 - cp-2
@@ -319,9 +359,9 @@ class OFDM_MOD:
         from mylib import cool_plot
         cool_plot(corr, title='corr_pss_time', show_plot=False)
         
-        rx = rx[maxi:maxi + (self.N_fft + self.CP_len) * 6]
+        #rx = rx[maxi:maxi + (self.N_fft + self.CP_len) * 6]
         
-        return rx
+        return maxi
 
     def corr_pss_freq(self, rx):
         """
@@ -371,7 +411,7 @@ class OFDM_MOD:
         sample_rate = self.N_fft * 15000
         index_pss = self.corr_pss_time(signal)
         frequency_offset = frequency_offset_estimation(signal, index_pss, sample_rate)
-        ic(frequency_offset)
+        #ic(frequency_offset)
         signal = np.array(signal, dtype=np.complex128)
         
         time = len(signal) / sample_rate
@@ -411,11 +451,15 @@ class OFDM_MOD:
 
         return ofdm
 
-    def indiv_symbols(self, ofdm):
+    def indiv_symbols(self, ofdm, pss=True):
         cp = self.CP_len
         all_sym = self.N_fft + cp
         
-        index = self.indexs_of_CP(ofdm)
+        if pss:
+            index = self.indexs_of_CP_after_PSS(ofdm)
+        else:
+            index = self.indexs_of_CP(ofdm)
+        ic(index)
         #ofdm = self.freq_syn(ofdm, index)
         
         symbols = []
@@ -447,3 +491,70 @@ class OFDM_MOD:
             return ret
         else:
             return fft  
+        
+    def interpol_pilots(self, ofdm_symbols):
+        # Индексы пилотов
+        ind_pilots = self.pilot_carriers - self.GB_len // 2
+        for i in range(len(ind_pilots)//2, len(ind_pilots)):
+            ind_pilots[i] -= 1
+        # Вычисление ФФТ
+        rx_fft = self.fft(ofdm_symbols, GB=False)
+        ic(np.shape(rx_fft))
+        # Преобразование ФФТ в массив символов
+        fft_symbols = np.reshape(rx_fft, (-1, self.N_fft - self.GB_len + 1))
+        ic(np.shape(fft_symbols))
+        # Интерполяция фаз пилотов
+        interpolated_phases = []
+        for sym in fft_symbols:
+            phase_pil = np.angle(sym[ind_pilots]) - np.angle(1 + 1j)
+            interpolated_phase = []
+            for i in range(len(ind_pilots) - 1):
+                # Интерполяция между фазами соседних пилотов
+                ad = np.linspace(phase_pil[i], phase_pil[i + 1],
+                                ind_pilots[i + 1] - ind_pilots[i] + 1)
+                interpolated_phase.extend(ad)
+                #ic(len(ad))
+            #ic(len(interpolated_phase))
+            interpolated_phases.append(interpolated_phase)
+        
+        ic(np.shape(interpolated_phases), np.shape(fft_symbols) )
+        import matplotlib.pyplot as plt
+        plt.figure(10)
+        plt.plot(np.ravel(interpolated_phases))
+        #plt.show()
+        
+        for i in range(len(interpolated_phases)):
+            interpolated_phases[i] = interpolated_phases[i][:len(fft_symbols[0])]
+        
+        # Развертка символов по углам пилотов
+        rotated_symbols = []
+        for sym, phase in zip(fft_symbols, interpolated_phases):
+            rotated_symbol = sym * np.exp(-1j * np.array(phase))
+            rotated_symbols.append(rotated_symbol)
+
+        return np.ravel(rotated_symbols)[self.N_fft - self.GB_len + 1:]
+
+
+    def del_pilots(self, rotated_symbols):
+        maxi = np.abs(np.max(rotated_symbols))
+        rotated_symbols_maxi = np.array(rotated_symbols) / maxi * 3 
+        ml.cool_scatter(rotated_symbols_maxi)
+        ml.cool_plot(abs(rotated_symbols_maxi))
+        out = []
+        for i in range(len(rotated_symbols_maxi)):
+            if (abs(rotated_symbols_maxi[i]) < 1.5) and (abs(rotated_symbols_maxi[i]) > 0.2):# and rotated_symbols_maxi[i] > 0.1:
+                out.append(rotated_symbols_maxi[i])
+        return np.array(out)
+    
+    def final_rx(self, rx, num_slots = 1):
+        maxi = self.corr_pss_time(rx)
+        #ic(maxi)
+        rx = rx[maxi:maxi + (self.N_fft + self.CP_len)*6 * num_slots]
+        
+        rx_synс = self.indiv_symbols(rx)
+        ic(self.pilot_carriers)
+        #ml.cool_plot(np.ravel(rx_synс))
+        fft_rx_inter = self.interpol_pilots(rx_synс)
+        fft_rx_del_pilots = self.del_pilots(fft_rx_inter)
+        
+        return fft_rx_del_pilots
