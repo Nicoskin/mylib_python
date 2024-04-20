@@ -85,7 +85,7 @@ class OFDM_MOD:
         #ic(usable_bandwidth,pilot_spacing)
         # Можно менять значение от 0 до 1
         #                          ↓
-        pilot_carriers = np.arange(0 + self.GB_len//2, self.N_fft - self.GB_len//2+1, pilot_spacing)
+        pilot_carriers = np.arange(0 + self.GB_len//2, self.N_fft - self.GB_len//2, pilot_spacing)
         #pilot_carriers = np.linspace(0 + self.GB_len//2, self.N_fft - self.GB_len//2+1, N_pil)
 
         for i in range(len(pilot_carriers)):
@@ -98,7 +98,7 @@ class OFDM_MOD:
         elif len(pilot_carriers) > N_pil:
             pilot_carriers = pilot_carriers[:N_pil]  # Truncate if there are too many
         
-        pilot_carriers[-1] = self.N_fft - self.GB_len//2 # Последний пилот на последней доступной поднесущей
+        pilot_carriers[-1] = self.N_fft - self.GB_len//2 - 2 # Последний пилот на последней доступной поднесущей
         
         return pilot_carriers
     
@@ -114,7 +114,8 @@ class OFDM_MOD:
         """
         # Example using QPSK constellation:
         #pilot_symbols = np.exp(1j * np.pi * np.random.randint(0, 4, size=N_pilot))
-        pilot_symbols = [2+2j] * N_pilot
+        ones = list(ml.qpsk([0,0], amplitude=1))
+        pilot_symbols = ones * N_pilot
         return pilot_symbols
 
     def activ_carriers(self, pilots = False):
@@ -135,14 +136,14 @@ class OFDM_MOD:
             activ = np.array([
                     i
                     for i in range(0, fft_len)
-                    if (i in range(GB, fft_len - GB + 1))
+                    if (i in range(GB, fft_len - GB - 1))
                     and (i != fft_len/2)
                 ])
         else:
             activ = np.array([
                     i
                     for i in range(0, fft_len)
-                    if (i in range(GB, fft_len - GB + 1))
+                    if (i in range(GB, fft_len - GB - 1))
                     and (i not in PilCar)
                     and (i != fft_len/2)
                 ])
@@ -151,36 +152,9 @@ class OFDM_MOD:
         
         return activ
 
-    def add_pss(self, symbols): 
-        """
-        Добавление PSS 
-        
-        Работает правильно
-        """
-        #len_subcarr = len(self.activ_carriers(True))
-        
-        pss = ml.zadoff_chu(PSS=True) * 2
-        arr = np.zeros(self.N_fft, dtype=complex)
-
-        # Массив с защитными поднесущими и 0 в центре
-        arr[self.N_fft//2 - 31 : self.N_fft//2] = pss[:31]
-        arr[self.N_fft//2 + 1: self.N_fft//2 + 32] = pss[31:]
-        
-        symbols = np.insert(symbols, 0, arr, axis=0)
-        
-        for i in range(6, symbols.shape[0], 6):
-            symbols = np.insert(symbols, i, arr, axis=0)
-
-        return symbols
-
-    def modulation(self, amplitude=2**15, ravel=True):
+    def modulation(self, amplitude_all=2**14, amplitude_data=1, amplitude_pss=3, amplitude_pilots=3, ravel=True):
         """
         OFDM модуляция.
-
-        Args:
-            symbols (np.ndarray): Массив символов QAM.
-            ravel (bool, optional): Если True, возвращает одномерный массив OFDM-сигналов. 
-                Defaults to True.
 
         Returns:
             np.ndarray: Массив OFDM-сигналов.
@@ -190,10 +164,13 @@ class OFDM_MOD:
             len_arr = len(activ)
             try:
                 if (len(symbols) % len_arr) != 0:
-                    symbols1 = np.array_split(
-                        symbols[: -(len(symbols) % len_arr)], len(symbols) / len_arr)
+                    symbols1 = np.array_split(symbols[: -(len(symbols) % len_arr)], len(symbols) / len_arr)
                     symbols2 = np.array((symbols[-(len(symbols) % len_arr) :]))
-                    zeros_last = np.zeros(len_arr - len(symbols2))
+                    
+                    ran_bits = ml.gen_rand_bits((len_arr - len(symbols2))*2)
+                    zero_qpsk = list(ml.qpsk(ran_bits, amplitude=1)) # 1+1j 
+                    
+                    zeros_last = np.array(zero_qpsk)
                     symbols2 = np.concatenate((symbols2, zeros_last))
                     symbols1.append(symbols2)
                     symbols = symbols1
@@ -205,7 +182,7 @@ class OFDM_MOD:
             
             return symbols
 
-        def distrib_subcarriers(symbols, activ, fft_len):
+        def distrib_subcarriers(symbols, activ, fft_len, amplitude):
             len_symbols = np.shape(symbols)
             # Создание матрицы, в строчке по n символов QPSK
             if len(len_symbols) > 1: 
@@ -219,7 +196,7 @@ class OFDM_MOD:
                 index_sym = 0
                 for j in range(len(symbol)):
                     if j in self.pilot_carriers:
-                        arr_symols[i][j] = self.pilot_symbols[index_pilot]
+                        arr_symols[i][j] = self.pilot_symbols[index_pilot] * amplitude
                         index_pilot += 1
                     elif (j in activ) and (index_sym < len_symbols[-1]):
                         if len(len_symbols) > 1:
@@ -230,27 +207,110 @@ class OFDM_MOD:
             
             return arr_symols
 
+        def split_into_slots(symbols, chunk_size):
+            chunks = []
+            sym = list(symbols)
+            # Разбивает `symbols` на фрагменты по `chunk_size`
+            for i in range(0, len(sym), chunk_size):
+                chunks.append(sym[i:i + chunk_size])
+            return chunks
+
+        def to_binary_fixed_length(number, length=8):
+            binary_array = []
+            for i in range(length):
+                bit = number & (1 << (length - i - 1))
+                binary_array.append(bit >> (length - i - 1))
+            return binary_array
+
+        def add_pss(fft_len, symbols, amplitude): 
+            """
+            Добавление PSS 
+            
+            Работает правильно
+            """
+            #len_subcarr = len(self.activ_carriers(True))
+            
+            pss = ml.zadoff_chu(PSS=True) * amplitude
+            arr = np.zeros(fft_len, dtype=complex)
+
+            # Массив с защитными поднесущими и 0 в центре
+            arr[fft_len//2 - 31 : fft_len//2] = pss[:31]
+            arr[fft_len//2 + 1: fft_len//2 + 32] = pss[31:]
+            
+            symbols = np.insert(symbols, 0, arr, axis=0)
+            
+            for i in range(6, symbols.shape[0], 6):
+                symbols = np.insert(symbols, i, arr, axis=0)
+
+            return symbols
+
+        def add_CRC(slot_pre_post):
+            data = ml.dem_qpsk(slot_pre_post) # Демодуляция по QPSK
+            data = list(data)
+            G = [1,0,1,0,0,1,1,1,0,1,0,0,0,1,0,1] # полином для вычисления crc
+
+            data_crc = data + 16 * [0]
+            for i in range(0,len(data_crc)-16):
+                if(data_crc[i] == 1):
+                    for j in range(len(G)):
+                        data_crc[i+j] = data_crc[i+j] ^ G[j]
+            crc = data_crc[len(data_crc)-16:]
+
+            return np.array(crc)
+
         fft_len = self.N_fft
         _cyclic_prefix_len = self.CP_len
         _guard_band_len = self.GB_len
         symbols = self.QAM_sym
         activ = self.activ_carriers()
-
-        # Делим массив символов на матрицу
-        #(в строке элеметнов = доступных поднесущих)
-        symbols = reshape_symbols(symbols, activ)
-        #ic(np.shape(symbols))
-        # Добавление нулевых строк для чётности "5"
-        if np.shape(symbols)[0] % 5 != 0:
-            zero = np.zeros((5 - np.shape(symbols)[0] % 5, len(activ)))
-            symbols = np.concatenate((symbols, zero))
+    
+        len_prefix_max_slots = int(np.log2(256))
+    
+        # Нормирование амплитуд
+        am_max = np.max([amplitude_data, amplitude_pilots, amplitude_pss])
+        amplitude_data = amplitude_data / am_max
+        amplitude_pilots = amplitude_pilots / am_max
+        amplitude_pss = amplitude_pss / am_max
+            
+        symbols = split_into_slots(symbols, (-len_prefix_max_slots -4 +(len(activ))*5) -8)
         
-        arr_symols = distrib_subcarriers(symbols, activ, fft_len)
-        #ic(np.shape(arr_symols))
-        #ml.cool_plot(np.ravel(arr_symols))
-        arr_symols = self.add_pss(arr_symols)
-        #ic('distrib_subcarriers | Количество OFDM символов', np.shape(arr_symols)) 
-        #ml.cool_plot(np.ravel(arr_symols))     
+        # Делим массив символов на матрицу (в строке элеметнов = доступных поднесущих)
+        slots = []
+        for slot, i in zip(symbols, range(len(symbols))):
+            # Заполнение префикса
+            slot_number = ml.qpsk(to_binary_fixed_length(i+1, len_prefix_max_slots), amplitude=1)
+            total_slots = ml.qpsk(to_binary_fixed_length(len(symbols), len_prefix_max_slots), amplitude=1)
+            useful_bits = ml.qpsk(to_binary_fixed_length(len(slot)+8+4+8, 8), amplitude=1)
+            
+            slot_pre_post  = np.concatenate((slot_number, total_slots, useful_bits, slot))
+            # CRC
+            crc = ml.qpsk(add_CRC(slot_pre_post), amplitude=1) 
+            
+            slot_pre_post  = np.concatenate((slot_pre_post, crc))
+            
+            
+            slot_pre_post = reshape_symbols(slot_pre_post, activ) 
+
+            ran_bits = ml.gen_rand_bits(len(activ)*2)
+            zero_qpsk = list(ml.qpsk(ran_bits, amplitude=1)) # 1+1j 
+            # Добавление недостающих OFDM символов для заполнения слота
+            empty_symbol = []
+            for em in range(0, 5 - np.shape(slot_pre_post)[0]):
+                empty_symbol.append(zero_qpsk)
+            if len(empty_symbol) > 0:
+                slot_pre_post = np.concatenate((slot_pre_post, empty_symbol))
+            
+            #ic(np.shape(slot_pre_post))
+            slots.append(slot_pre_post)
+        
+        slots = np.concatenate(slots, axis=0)
+        
+
+
+        slots = slots * amplitude_data
+        arr_symols = distrib_subcarriers(slots, activ, fft_len, amplitude_pilots)
+        arr_symols = add_pss(fft_len, arr_symols, amplitude_pss)
+        
         arr_symols = np.fft.fftshift(arr_symols, axes=1)
         
         # IFFT
@@ -263,7 +323,7 @@ class OFDM_MOD:
         for i in range(np.shape(arr_symols)[0]):
             fft_cp[i] = np.concatenate((ifft[i][-_cyclic_prefix_len:], ifft[i]))
         
-        fft_cp = fft_cp * amplitude
+        fft_cp = fft_cp * amplitude_all
         
         if ravel:
             return np.ravel(fft_cp)

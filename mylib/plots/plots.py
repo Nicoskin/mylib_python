@@ -3,7 +3,7 @@ import numpy as np
 from typing import Literal
 from pylab import gcf
 
-call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye, call_count_heat = 0, 0, 0, 0, 0
+call_count_scat, call_count_plot, call_count_scat_dev_, call_count_eye, call_count_heat, call_count_res_grid = 0, 0, 0, 0, 0, 0
 
 def cool_scatter(x, y=None, show_plot=False, name="cool_scatter", title="", circle=False):
     """
@@ -329,6 +329,57 @@ def heat_map(rx, len_sym = 80, razreshenie = 1e5, transpose = True, title="", sh
     
     if show_plot is True:
         plt.show()
+
+def resource_grid(data, count_frames, len_frame = 6, Nfft = 128, cp = 32, title="", show_plot = False): 
+    """
+        data - данные для ресурсной сетки 
+        count_frame - количество OFDM фреймов бля ресурсной сетки
+        len_frame - количество ofdm-символов в ofdm фрейме
+        Nftt - количество поднесущих
+        cp - защитный префикс
+
+    """
+    name = 'resource_grid'
+    global call_count_res_grid
+    call_count_res_grid += 1
+    if call_count_res_grid >= 2:
+        num_ = 472 + call_count_res_grid
+        name = name + '_' +f'{call_count_res_grid}'
+    else:
+        num_ = 472
+        
+
+    fig, ax1 = plt.subplots(1, sharex=True, figsize=(9, 7), num=num_)
+    fig.subplots_adjust(left=0.05, bottom=0.08, right=0.98, top=0.94)
+        
+    fig = gcf()
+    fig.canvas.manager.set_window_title(name)
+    fig.suptitle(title)
+    
+    
+    data1 = data[:(Nfft+cp)*len_frame*count_frames]
+    half_nfft = Nfft//2
+
+    # преобразуем в матрицу 
+    data_freq = data1.reshape(len_frame*count_frames, (Nfft+cp))
+
+    # обрезаем циклический префикс
+    data1 = data_freq[:, cp:]
+    # производим обратное преобразование фурье и транспонируем матрицу для удобного вывода на карте
+    data2 = np.fft.fft(data1).T
+
+    # переставляем строки местами 
+    temp = np.copy(data2[0:half_nfft, :])
+    data2[0:half_nfft, :] = data2[half_nfft:Nfft, :]
+    data2[half_nfft:Nfft, :] = temp
+
+    
+    plt.imshow(abs(data2), cmap='jet', interpolation='nearest', aspect='auto')
+    plt.colorbar(pad=0.01, fraction=0.1)
+    
+    if show_plot is True:
+        plt.show()
+    
 
 
 def _cool_scatter_dev(x, y=None, show_plot=False, name="cool_scatter"):
